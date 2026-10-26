@@ -19,6 +19,9 @@ jobs:
       ISSUEDOCTOR_DATA_DIR: ${{ github.workspace }}/.ci-data
       ISSUEDOCTOR_DOCKER: "1"
       ISSUEDOCTOR_SECRET_KEY: ci-only-secret
+      # Windows runner 默认 cp1252，评测脚本会输出中文 JSON
+      PYTHONUTF8: "1"
+      PYTHONIOENCODING: utf-8
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

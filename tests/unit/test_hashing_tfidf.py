@@ -6,6 +6,8 @@ scikit-learn absent. They therefore assert pure-Python behaviour only.
 
 import math
 
+import pytest
+
 from issuedoctor.embedding.hashing_tfidf import (
     DEFAULT_DIMENSIONS,
     SparseVector,
@@ -29,7 +31,8 @@ def test_vectors_are_l2_normalised():
 def test_identical_texts_produce_identical_vectors():
     vectors = encode_texts(["same text", "same text"])
     assert vectors[0].values == vectors[1].values
-    assert cosine_similarity(vectors[0], vectors[1]) == 1.0
+    # 浮点求和顺序随平台/Python 版本变化，允许 1e-12 级别的误差
+    assert cosine_similarity(vectors[0], vectors[1]) == pytest.approx(1.0, abs=1e-12)
 
 
 def test_results_are_deterministic_across_calls():
