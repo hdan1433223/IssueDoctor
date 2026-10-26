@@ -218,8 +218,8 @@ python -m evaluation.scripts.validate_results
 
 ## 贡献
 
-欢迎提交 Issue 与 Pull Request。建议先阅读 [CONTRIBUTING 相关说明](docs/ARCHITECTURE.md)
-与仓库内生成的治理包示例；提交前请确保 `ruff check .` 与 `pytest` 全部通过。
+欢迎提交 Issue 与 Pull Request。开始之前请阅读 [CONTRIBUTING.md](CONTRIBUTING.md)；
+提交前请确保 `ruff check .` 与 `pytest` 全部通过。
 请勿在 Issue、PR 或截图中粘贴真实 Token、API Key 或私有仓库内容。
 
 ## 免责声明
