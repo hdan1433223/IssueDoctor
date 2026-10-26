@@ -12,5 +12,8 @@
   },
   "dependencies": {
     "echarts": "6.1.0"
+  },
+  "overrides": {
+    "source-map-js": "1.2.2"
   }
 }
