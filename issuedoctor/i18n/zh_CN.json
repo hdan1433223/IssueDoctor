@@ -1,0 +1,15 @@
+{
+  "app.name": "IssueDoctor",
+  "app.tagline": "给 GitHub Issue 流程做一次可解释的健康检查",
+  "nav.new_audit": "新建审计",
+  "nav.history": "历史分析",
+  "nav.guide": "使用指南",
+  "nav.settings": "设置",
+  "home.repo_label": "GitHub 仓库",
+  "home.repo_placeholder": "例如 psf/requests 或 https://github.com/psf/requests",
+  "home.preflight": "开始预检",
+  "home.recent": "最近分析",
+  "home.empty_history": "还没有分析记录。输入公开仓库地址开始第一次审计。",
+  "analysis.basic_mode": "基础诊断模式",
+  "analysis.basic_mode_help": "无需 LLM 也能完成规则评分、本地相似度分析和基础治理建议。"
+}

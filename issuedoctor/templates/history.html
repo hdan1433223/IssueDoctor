@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}历史分析 · {{ t('app.name') }}{% endblock %}
+{% block content %}
+  <div class="flex flex-wrap items-end justify-between gap-4">
+    <div><p class="section-eyebrow">审计记录</p><h1 class="text-2xl font-semibold">历史分析</h1><p class="mt-3 text-sm text-slate-500">回看仓库健康度，让每一次改进都有迹可循。</p></div>
+    <a class="primary-button" href="{{ url_for('main.index') }}">{{ icon('plus') }}新建审计</a>
+  </div>
+  {% if not runs %}
+    <section class="mt-8 flex flex-col items-center rounded-xl border border-dashed border-line bg-white px-6 py-16 text-center">
+      <span class="panel-icon">{{ icon('history') }}</span>
+      <h2 class="mt-5 text-base font-medium">还没有审计记录</h2>
+      <p class="mt-2 text-sm leading-6 text-slate-500">完成第一次仓库审计后，诊断结果会保存在这里。</p>
+      <a class="mt-6 text-link" href="{{ url_for('main.index') }}">开始第一次审计 {{ icon('arrow') }}</a>
+    </section>
+  {% else %}
+  <div class="mt-6 overflow-x-auto border border-line bg-white"><table class="w-full text-left text-sm"><thead class="border-b border-line bg-canvas text-xs text-slate-500"><tr><th class="px-4 py-3">仓库</th><th class="px-4 py-3">分析日期</th><th class="px-4 py-3">模式</th><th class="px-4 py-3">总分</th><th class="px-4 py-3">置信度</th><th class="px-4 py-3">范围</th><th class="px-4 py-3">状态</th></tr></thead><tbody class="divide-y divide-line">{% for run in runs %}<tr><td class="px-4 py-3"><a class="font-medium text-accent hover:underline" href="{{ url_for('analysis.overview_page', run_id=run.id) }}">{{ run.repository.full_name }}</a></td><td class="px-4 py-3">{{ run.created_at.strftime('%Y-%m-%d %H:%M') }}</td><td class="px-4 py-3">{{ run.mode }}</td><td class="px-4 py-3">{{ 'N/A' if run.total_score is none else '%.1f'|format(run.total_score) }}</td><td class="px-4 py-3">{{ 'N/A' if run.confidence_score is none else '%.1f'|format(run.confidence_score) }}</td><td class="px-4 py-3">{{ run.issue_count }} Issues / {{ run.pr_count }} PRs</td><td class="px-4 py-3">{{ run.status }}</td></tr>{% else %}<tr><td class="px-4 py-8 text-center text-slate-500" colspan="7">暂无历史分析。</td></tr>{% endfor %}</tbody></table></div>
+  {% endif %}
+{% endblock %}

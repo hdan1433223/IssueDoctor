@@ -1,0 +1,28 @@
+schema_version: "1.0"
+analysis_date: "2026-09-25"
+shared_config:
+  window_months: 1
+  issue_limit: 30
+  pr_limit: 30
+  scoring_version: "1.0"
+  embedding_model: "BAAI/bge-small-zh-v1.5"
+  llm:
+    enabled: false
+    model: null
+    prompt_version: "issue-batch-v1"
+cases:
+  - id: flask
+    repository_url: "https://github.com/pallets/flask"
+    source_ref: "d73fa1cdcbd8b1465c151db8924ba58b1dd14e35"
+    scale: medium
+    license: BSD-3-Clause
+  - id: requests
+    repository_url: "https://github.com/psf/requests"
+    source_ref: "611c6162cbc4ac2020a2f91c7cfa4f3abf9bbb60"
+    scale: medium-large
+    license: Apache-2.0
+  - id: cli
+    repository_url: "https://github.com/cli/cli"
+    source_ref: "9b031151a825bda919203c5202876a725d637368"
+    scale: large
+    license: MIT

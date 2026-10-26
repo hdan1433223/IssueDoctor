@@ -1,0 +1,8 @@
+-r requirements.txt
+pytest==8.4.2
+pytest-cov==6.2.1
+ruff==0.13.2
+# 评测脚本（evaluation/）所需；不参与运行时依赖。
+pandas==2.3.2
+scikit-learn==1.7.1
+pypdf==6.1.1

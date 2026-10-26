@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}分析进度 · {{ t('app.name') }}{% endblock %}
+
+{% block content %}
+  {% set active_step = 3 %}{% include "components/workflow_steps.html" %}
+  <div class="max-w-3xl" data-progress-root data-run-id="{{ run.id }}">
+    <p class="text-sm text-slate-500">{{ run.repository.full_name }}</p>
+    <h1 class="mt-1 text-2xl font-semibold">分析进度</h1>
+    <div class="mt-8 h-2 overflow-hidden bg-slate-200" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ run.progress_percent }}">
+      <div class="h-full bg-accent" data-progress-bar style="width: {{ run.progress_percent }}%"></div>
+    </div>
+    <div class="mt-3 flex justify-between text-sm">
+      <span data-current-stage>{{ run.current_stage }}</span>
+      <span data-percent>{{ run.progress_percent }}%</span>
+    </div>
+    <dl class="mt-8 grid grid-cols-3 divide-x divide-line border-y border-line py-4 text-center text-sm">
+      <div><dt class="text-slate-500">Issues</dt><dd class="mt-1 font-semibold" data-issue-count>{{ run.issue_count }}</dd></div>
+      <div><dt class="text-slate-500">PRs</dt><dd class="mt-1 font-semibold" data-pr-count>{{ run.pr_count }}</dd></div>
+      <div><dt class="text-slate-500">Comments</dt><dd class="mt-1 font-semibold" data-comment-count>{{ run.comment_count }}</dd></div>
+    </dl>
+    <ol class="mt-8 space-y-3 text-sm" data-events></ol>
+    <div class="mt-6 hidden border border-amber-200 bg-amber-50 p-4 text-sm text-amber-900" data-warning></div>
+    <p class="mt-6 text-sm leading-6 text-slate-600">分析完成后会自动进入诊断总览。总览中先查看低分维度和优先问题，再打开指标详情与原始证据。</p>
+  </div>
+{% endblock %}
+
+{% block scripts %}<script src="{{ url_for('static', filename='js/progress.js') }}" defer></script>{% endblock %}

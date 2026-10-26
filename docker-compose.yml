@@ -1,0 +1,17 @@
+services:
+  issuedoctor:
+    build: .
+    ports:
+      - "127.0.0.1:5000:5000"
+    environment:
+      ISSUEDOCTOR_SECRET_KEY: "${ISSUEDOCTOR_SECRET_KEY:-change-this-local-secret}"
+      ISSUEDOCTOR_GITHUB_TOKEN: "${ISSUEDOCTOR_GITHUB_TOKEN:-}"
+      ISSUEDOCTOR_LLM_API_KEY: "${ISSUEDOCTOR_LLM_API_KEY:-}"
+      ISSUEDOCTOR_LLM_BASE_URL: "${ISSUEDOCTOR_LLM_BASE_URL:-https://api.openai.com/v1}"
+      ISSUEDOCTOR_LLM_MODEL: "${ISSUEDOCTOR_LLM_MODEL:-}"
+    volumes:
+      - issuedoctor-data:/data
+    restart: unless-stopped
+
+volumes:
+  issuedoctor-data:

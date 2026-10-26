@@ -1,0 +1,25 @@
+task,item_id,label,annotator,notes
+issue_type,fixture-type-001,Bug,A1,受控标注流程验收样本
+issue_type,fixture-type-002,Docs,A1,受控标注流程验收样本
+issue_type,fixture-type-003,Question,A1,受控标注流程验收样本
+issue_type,fixture-type-004,Bug,A1,受控标注流程验收样本
+issue_type,fixture-type-005,Feature,A1,受控标注流程验收样本
+issue_type,fixture-type-006,Bug,A1,受控标注流程验收样本
+issue_type,fixture-type-007,Other,A1,受控标注流程验收样本
+issue_type,fixture-type-008,Feature,A1,受控标注流程验收样本
+bug_completeness,fixture-bug-001,incomplete,A1,缺少完整环境字段
+bug_completeness,fixture-bug-002,complete,A1,四类信息齐全
+bug_completeness,fixture-bug-003,incomplete,A1,缺少复现步骤
+bug_completeness,fixture-bug-004,complete,A1,四类信息齐全
+duplicate_pair,fixture-pair-001,distinct,A1,主题相近但根因不同
+duplicate_pair,fixture-pair-002,duplicate,A1,同一错误表现
+duplicate_pair,fixture-pair-003,duplicate,A1,同一命令回归
+duplicate_pair,fixture-pair-004,distinct,A1,仅标签相同
+closure_reason,fixture-close-001,clear,A1,关联修复 PR
+closure_reason,fixture-close-002,unclear,A1,无关闭说明
+closure_reason,fixture-close-003,clear,A1,评论说明不计划修复
+closure_reason,fixture-close-004,unclear,A1,仅关闭事件
+ai_evidence_consistency,fixture-ai-001,consistent,A1,解释可回溯正文
+ai_evidence_consistency,fixture-ai-002,consistent,A1,解释可回溯正文
+ai_evidence_consistency,fixture-ai-003,inconsistent,A1,推断了未提供的版本
+ai_evidence_consistency,fixture-ai-004,consistent,A1,解释可回溯标签与正文

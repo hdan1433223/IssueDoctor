@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}无法完成请求 · {{ t('app.name') }}{% endblock %}
+
+{% block content %}
+  <div class="max-w-2xl border border-red-200 bg-white p-8">
+    <p class="text-xs font-semibold uppercase tracking-wide text-red-700">{{ error.code }}</p>
+    <h1 class="mt-2 text-2xl font-semibold">无法完成请求</h1>
+    <p class="mt-4 text-sm leading-6 text-slate-700">{{ error.message }}</p>
+    <a class="mt-6 inline-block text-sm font-medium text-accent hover:underline" href="{{ url_for('main.index') }}">返回首页并检查仓库地址</a>
+  </div>
+{% endblock %}
+

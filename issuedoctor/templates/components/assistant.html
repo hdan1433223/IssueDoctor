@@ -1,0 +1,42 @@
+<div class="assistant-widget" data-assistant-root data-run-id="{{ run.id }}">
+  <button class="assistant-launcher" type="button" data-assistant-launcher aria-controls="assistant-panel" aria-expanded="false" aria-label="打开报告知识助手，可拖动调整位置" title="点击打开，拖动移动位置">
+    {{ icon('assistant') }}
+    <span class="assistant-launcher-label">问报告 · 可拖动</span>
+  </button>
+  <section class="assistant-panel" id="assistant-panel" data-assistant-panel role="dialog" aria-label="报告知识助手" aria-modal="false" hidden>
+    <header class="assistant-header">
+      <div>
+        <p class="assistant-kicker">当前报告知识库</p>
+        <h2>报告助手</h2>
+      </div>
+      <div class="assistant-header-actions">
+        <button class="assistant-clear-button" type="button" data-assistant-clear>清空</button>
+        <button class="assistant-icon-button" type="button" data-assistant-close aria-label="关闭报告助手">{{ icon('close') }}</button>
+      </div>
+    </header>
+    <div class="assistant-scope">
+      <span class="assistant-live-dot" aria-hidden="true"></span>
+      {{ run.repository.full_name }} · 仅检索本次审计结果
+    </div>
+    <div class="assistant-messages" data-assistant-messages role="log" aria-live="polite" aria-relevant="additions">
+      <div class="assistant-message is-assistant" data-assistant-welcome>
+        <p>我可以根据本次报告解释分数、优先级和证据。答案会附带报告页或 GitHub 来源，不会执行任何仓库写操作。</p>
+      </div>
+    </div>
+    <div class="assistant-suggestions" data-assistant-suggestions aria-label="建议问题">
+      <button type="button" data-assistant-question="这份报告最重要的三个问题是什么？">最重要的三个问题</button>
+      <button type="button" data-assistant-question="最低分维度为什么低，应该先怎么改？">低分维度怎么改</button>
+      <button type="button" data-assistant-question="哪些 Issue 最值得优先处理？请给出证据。">优先处理哪些 Issue</button>
+    </div>
+    <form class="assistant-form" data-assistant-form>
+      <label class="sr-only" for="assistant-question">向报告助手提问</label>
+      <textarea id="assistant-question" data-assistant-input rows="2" maxlength="2000" placeholder="问问这份报告，例如：D1 为什么低？"></textarea>
+      <div class="assistant-form-footer">
+        <span data-assistant-status role="status">基于本次报告回答</span>
+        <button class="assistant-send" type="submit" data-assistant-submit aria-label="发送问题">
+          {{ icon('send') }}
+        </button>
+      </div>
+    </form>
+  </section>
+</div>

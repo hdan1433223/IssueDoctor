@@ -1,0 +1,8 @@
+# 可选能力：服务端 PDF 导出（Playwright + Chromium）
+#
+# 启用后可使用后端正式 PDF 导出。未安装时可使用网页报告页的浏览器打印导出，
+# 效果基本一致。
+#
+#   pip install -r requirements-pdf.txt
+#   python -m playwright install chromium
+playwright==1.55.0

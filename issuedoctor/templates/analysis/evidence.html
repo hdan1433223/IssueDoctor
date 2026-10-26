@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}证据 · {{ run.repository.full_name }}{% endblock %}
+{% block content %}
+  <a class="text-sm text-accent hover:underline" href="{{ url_for('analysis.overview_page', run_id=run.id) }}">← 返回总览</a>
+  <h1 class="mb-6 mt-4 text-2xl font-semibold">原始证据</h1>
+  {% include "components/evidence_table.html" %}
+  {% include "components/issue_drawer.html" %}
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/evidence.js') }}" defer></script>{% endblock %}
+

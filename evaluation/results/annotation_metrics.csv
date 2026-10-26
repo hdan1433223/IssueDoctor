@@ -1,0 +1,6 @@
+task,sample_count,accuracy,precision_macro,recall_macro,f1_macro
+ai_evidence_consistency,4,1.000000,1.000000,1.000000,1.000000
+bug_completeness,4,0.750000,0.833333,0.750000,0.733333
+closure_reason,4,0.750000,0.833333,0.750000,0.733333
+duplicate_pair,4,0.750000,0.833333,0.750000,0.733333
+issue_type,8,0.750000,0.700000,0.700000,0.666667

@@ -1,0 +1,2634 @@
+{
+  "schema_version": "1.0",
+  "repository": {
+    "full_name": "cli/cli",
+    "html_url": "https://github.com/cli/cli",
+    "default_branch": "trunk",
+    "primary_language": "Go",
+    "stars_count": 46408
+  },
+  "analysis_metadata": {
+    "id": "67f68fa9-0fea-4fd8-b8b3-8b14dc89534f",
+    "status": "SUCCEEDED",
+    "mode": "BASIC",
+    "created_at": "2026-09-26T01:09:00.546494",
+    "started_at": "2026-09-26T01:09:00.558939",
+    "finished_at": "2026-09-26T01:09:13.763667",
+    "window_start": "2026-08-26T01:09:00.546494",
+    "window_end": "2026-09-26T01:09:00.546494",
+    "issue_count": 30,
+    "pr_count": 30,
+    "comment_count": 529,
+    "is_truncated": true
+  },
+  "analysis_config": {
+    "version": "1.0",
+    "window_months": 1,
+    "issue_limit": 500,
+    "pr_limit": 500,
+    "max_issue_limit": 1000,
+    "max_pr_limit": 1000,
+    "llm_batch_issue_count": 15,
+    "llm_batch_total_chars": 18000,
+    "issue_body_max_chars": 4000,
+    "background_max_workers": 1,
+    "embedding_model": "BAAI/bge-small-zh-v1.5",
+    "embedding_max_characters": 4000,
+    "max_llm_retries": 2,
+    "llm_prompt_version": "issue-batch-v1",
+    "runtime": {
+      "github_api_calls": 9,
+      "llm_api_calls": 0,
+      "embedding_mode": "embedding"
+    }
+  },
+  "scoring_config": {
+    "version": "1.0",
+    "finding_healthy_score": 75,
+    "dimensions": {
+      "D1": {
+        "name": "响应效率",
+        "weight": 20,
+        "metrics": {
+          "M1.1": {
+            "weight": 8,
+            "unit": "hours",
+            "minimum_samples": 5,
+            "direction": "lower",
+            "points": [
+              [
+                12,
+                100
+              ],
+              [
+                24,
+                90
+              ],
+              [
+                48,
+                75
+              ],
+              [
+                72,
+                60
+              ],
+              [
+                168,
+                35
+              ],
+              [
+                336,
+                10
+              ],
+              [
+                337,
+                0
+              ]
+            ]
+          },
+          "M1.2": {
+            "weight": 7,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                95
+              ],
+              [
+                10,
+                85
+              ],
+              [
+                20,
+                65
+              ],
+              [
+                35,
+                40
+              ],
+              [
+                50,
+                20
+              ],
+              [
+                70,
+                0
+              ]
+            ]
+          },
+          "M1.3": {
+            "weight": 5,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "open_age_days": 30,
+            "inactive_days": 14,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                90
+              ],
+              [
+                15,
+                75
+              ],
+              [
+                25,
+                55
+              ],
+              [
+                40,
+                30
+              ],
+              [
+                60,
+                0
+              ]
+            ]
+          }
+        }
+      },
+      "D2": {
+        "name": "处理与积压健康度",
+        "weight": 20,
+        "metrics": {
+          "M2.1": {
+            "weight": 7,
+            "unit": "days",
+            "minimum_samples": 5,
+            "direction": "lower",
+            "points": [
+              [
+                3,
+                100
+              ],
+              [
+                7,
+                90
+              ],
+              [
+                14,
+                75
+              ],
+              [
+                30,
+                55
+              ],
+              [
+                60,
+                35
+              ],
+              [
+                90,
+                20
+              ],
+              [
+                180,
+                0
+              ]
+            ]
+          },
+          "M2.2": {
+            "weight": 7,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "long_open_days": 90,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                95
+              ],
+              [
+                10,
+                85
+              ],
+              [
+                20,
+                65
+              ],
+              [
+                35,
+                40
+              ],
+              [
+                50,
+                0
+              ]
+            ]
+          },
+          "M2.3": {
+            "weight": 6,
+            "unit": "ratio",
+            "minimum_samples": 10,
+            "minimum_window_days": 60,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                0.25,
+                15
+              ],
+              [
+                0.5,
+                40
+              ],
+              [
+                0.75,
+                70
+              ],
+              [
+                0.9,
+                90
+              ],
+              [
+                1.0,
+                100
+              ]
+            ]
+          }
+        }
+      },
+      "D3": {
+        "name": "Issue 信息质量",
+        "weight": 20,
+        "metrics": {
+          "M3.1": {
+            "weight": 10,
+            "unit": "percent",
+            "minimum_samples": 5,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                40,
+                35
+              ],
+              [
+                60,
+                60
+              ],
+              [
+                75,
+                80
+              ],
+              [
+                90,
+                95
+              ],
+              [
+                100,
+                100
+              ]
+            ]
+          },
+          "M3.2": {
+            "weight": 5,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "low_information_characters": 80,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                95
+              ],
+              [
+                15,
+                80
+              ],
+              [
+                25,
+                60
+              ],
+              [
+                40,
+                35
+              ],
+              [
+                60,
+                0
+              ]
+            ]
+          },
+          "M3.3": {
+            "weight": 5,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "minimum_headings": 3,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                25,
+                35
+              ],
+              [
+                50,
+                60
+              ],
+              [
+                75,
+                85
+              ],
+              [
+                90,
+                100
+              ]
+            ]
+          }
+        }
+      },
+      "D4": {
+        "name": "分类与标签治理",
+        "weight": 15,
+        "metrics": {
+          "M4.1": {
+            "weight": 5,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                25,
+                25
+              ],
+              [
+                50,
+                50
+              ],
+              [
+                70,
+                75
+              ],
+              [
+                85,
+                90
+              ],
+              [
+                95,
+                100
+              ]
+            ]
+          },
+          "M4.2": {
+            "weight": 4,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                25,
+                25
+              ],
+              [
+                50,
+                55
+              ],
+              [
+                75,
+                80
+              ],
+              [
+                90,
+                100
+              ]
+            ]
+          },
+          "M4.3": {
+            "weight": 3,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                85
+              ],
+              [
+                15,
+                60
+              ],
+              [
+                30,
+                25
+              ],
+              [
+                50,
+                0
+              ]
+            ]
+          },
+          "M4.4": {
+            "weight": 3,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                25,
+                30
+              ],
+              [
+                50,
+                60
+              ],
+              [
+                75,
+                85
+              ],
+              [
+                100,
+                100
+              ]
+            ]
+          }
+        }
+      },
+      "D5": {
+        "name": "协作闭环健康度",
+        "weight": 15,
+        "metrics": {
+          "M5.1": {
+            "weight": 5,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                25,
+                30
+              ],
+              [
+                50,
+                60
+              ],
+              [
+                75,
+                85
+              ],
+              [
+                100,
+                100
+              ]
+            ]
+          },
+          "M5.2": {
+            "weight": 3,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                25,
+                30
+              ],
+              [
+                50,
+                60
+              ],
+              [
+                75,
+                85
+              ],
+              [
+                100,
+                100
+              ]
+            ]
+          },
+          "M5.3": {
+            "weight": 4,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                90
+              ],
+              [
+                15,
+                70
+              ],
+              [
+                30,
+                40
+              ],
+              [
+                50,
+                0
+              ]
+            ]
+          },
+          "M5.4": {
+            "weight": 3,
+            "unit": "days",
+            "minimum_samples": 5,
+            "direction": "lower",
+            "points": [
+              [
+                3,
+                100
+              ],
+              [
+                7,
+                90
+              ],
+              [
+                14,
+                75
+              ],
+              [
+                30,
+                55
+              ],
+              [
+                60,
+                30
+              ],
+              [
+                120,
+                0
+              ]
+            ]
+          }
+        }
+      },
+      "D6": {
+        "name": "重复问题与知识沉淀",
+        "weight": 10,
+        "metrics": {
+          "M6.1": {
+            "weight": 4,
+            "unit": "percent",
+            "minimum_samples": 5,
+            "candidate_threshold": 0.82,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                90
+              ],
+              [
+                15,
+                70
+              ],
+              [
+                30,
+                40
+              ],
+              [
+                50,
+                0
+              ]
+            ]
+          },
+          "M6.2": {
+            "weight": 3,
+            "unit": "percent",
+            "minimum_samples": 5,
+            "minimum_cluster_size": 3,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                90
+              ],
+              [
+                15,
+                70
+              ],
+              [
+                30,
+                40
+              ],
+              [
+                50,
+                0
+              ]
+            ]
+          },
+          "M6.3": {
+            "weight": 3,
+            "unit": "points",
+            "minimum_samples": 1,
+            "maximum_points": 3.0,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                0.3,
+                10
+              ],
+              [
+                0.7,
+                25
+              ],
+              [
+                1.25,
+                45
+              ],
+              [
+                2.0,
+                70
+              ],
+              [
+                2.6,
+                90
+              ],
+              [
+                3.0,
+                100
+              ]
+            ],
+            "infrastructure_points": {
+              "issue_template": 1.25,
+              "contributing": 0.75,
+              "issue_config": 0.4,
+              "support_or_faq": 0.3,
+              "triage_docs": 0.3
+            }
+          }
+        }
+      }
+    },
+    "confidence": {
+      "sample_adequacy_weight": 40,
+      "api_completeness_weight": 30,
+      "truncation_weight": 20,
+      "key_fields_weight": 10
+    }
+  },
+  "scores": {
+    "total": 49.82,
+    "confidence": 90.0,
+    "ai_coverage_percent": 0.0,
+    "dimensions": [
+      {
+        "code": "D1",
+        "score": 0.0,
+        "nominal_weight": 20.0,
+        "effective_weight": 20.0,
+        "confidence": 100.0
+      },
+      {
+        "code": "D2",
+        "score": 100.0,
+        "nominal_weight": 20.0,
+        "effective_weight": 20.0,
+        "confidence": 100.0
+      },
+      {
+        "code": "D3",
+        "score": 65.83,
+        "nominal_weight": 20.0,
+        "effective_weight": 20.0,
+        "confidence": 100.0
+      },
+      {
+        "code": "D4",
+        "score": 83.18,
+        "nominal_weight": 15.0,
+        "effective_weight": 15.0,
+        "confidence": 100.0
+      },
+      {
+        "code": "D5",
+        "score": 27.78,
+        "nominal_weight": 15.0,
+        "effective_weight": 15.0,
+        "confidence": 100.0
+      },
+      {
+        "code": "D6",
+        "score": 0.0,
+        "nominal_weight": 10.0,
+        "effective_weight": 10.0,
+        "confidence": 100.0
+      }
+    ]
+  },
+  "metrics": [
+    {
+      "dimension_code": "D1",
+      "metric_code": "M1.1",
+      "raw_value": null,
+      "unit": "hours",
+      "normalized_score": null,
+      "nominal_weight": 8.0,
+      "sample_size": 2,
+      "applicable": false,
+      "confidence": 40.0,
+      "thresholds": {
+        "weight": 8,
+        "unit": "hours",
+        "minimum_samples": 5,
+        "direction": "lower",
+        "points": [
+          [
+            12,
+            100
+          ],
+          [
+            24,
+            90
+          ],
+          [
+            48,
+            75
+          ],
+          [
+            72,
+            60
+          ],
+          [
+            168,
+            35
+          ],
+          [
+            336,
+            10
+          ],
+          [
+            337,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D1",
+      "metric_code": "M1.2",
+      "raw_value": 93.33333333333333,
+      "unit": "percent",
+      "normalized_score": 0.0,
+      "nominal_weight": 7.0,
+      "sample_size": 30,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 7,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            95
+          ],
+          [
+            10,
+            85
+          ],
+          [
+            20,
+            65
+          ],
+          [
+            35,
+            40
+          ],
+          [
+            50,
+            20
+          ],
+          [
+            70,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D1",
+      "metric_code": "M1.3",
+      "raw_value": null,
+      "unit": "percent",
+      "normalized_score": null,
+      "nominal_weight": 5.0,
+      "sample_size": 0,
+      "applicable": false,
+      "confidence": 0.0,
+      "thresholds": {
+        "weight": 5,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "open_age_days": 30,
+        "inactive_days": 14,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            90
+          ],
+          [
+            15,
+            75
+          ],
+          [
+            25,
+            55
+          ],
+          [
+            40,
+            30
+          ],
+          [
+            60,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D2",
+      "metric_code": "M2.1",
+      "raw_value": 0.0026331018518518517,
+      "unit": "days",
+      "normalized_score": 100.0,
+      "nominal_weight": 7.0,
+      "sample_size": 18,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 7,
+        "unit": "days",
+        "minimum_samples": 5,
+        "direction": "lower",
+        "points": [
+          [
+            3,
+            100
+          ],
+          [
+            7,
+            90
+          ],
+          [
+            14,
+            75
+          ],
+          [
+            30,
+            55
+          ],
+          [
+            60,
+            35
+          ],
+          [
+            90,
+            20
+          ],
+          [
+            180,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D2",
+      "metric_code": "M2.2",
+      "raw_value": 0.0,
+      "unit": "percent",
+      "normalized_score": 100.0,
+      "nominal_weight": 7.0,
+      "sample_size": 12,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 7,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "long_open_days": 90,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            95
+          ],
+          [
+            10,
+            85
+          ],
+          [
+            20,
+            65
+          ],
+          [
+            35,
+            40
+          ],
+          [
+            50,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D2",
+      "metric_code": "M2.3",
+      "raw_value": null,
+      "unit": "ratio",
+      "normalized_score": null,
+      "nominal_weight": 6.0,
+      "sample_size": 30,
+      "applicable": false,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 6,
+        "unit": "ratio",
+        "minimum_samples": 10,
+        "minimum_window_days": 60,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.25,
+            15
+          ],
+          [
+            0.5,
+            40
+          ],
+          [
+            0.75,
+            70
+          ],
+          [
+            0.9,
+            90
+          ],
+          [
+            1.0,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D3",
+      "metric_code": "M3.1",
+      "raw_value": null,
+      "unit": "percent",
+      "normalized_score": null,
+      "nominal_weight": 10.0,
+      "sample_size": 1,
+      "applicable": false,
+      "confidence": 20.0,
+      "thresholds": {
+        "weight": 10,
+        "unit": "percent",
+        "minimum_samples": 5,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            40,
+            35
+          ],
+          [
+            60,
+            60
+          ],
+          [
+            75,
+            80
+          ],
+          [
+            90,
+            95
+          ],
+          [
+            100,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D3",
+      "metric_code": "M3.2",
+      "raw_value": 30.0,
+      "unit": "percent",
+      "normalized_score": 51.67,
+      "nominal_weight": 5.0,
+      "sample_size": 30,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 5,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "low_information_characters": 80,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            95
+          ],
+          [
+            15,
+            80
+          ],
+          [
+            25,
+            60
+          ],
+          [
+            40,
+            35
+          ],
+          [
+            60,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D3",
+      "metric_code": "M3.3",
+      "raw_value": 70.0,
+      "unit": "percent",
+      "normalized_score": 80.0,
+      "nominal_weight": 5.0,
+      "sample_size": 30,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 5,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "minimum_headings": 3,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            50,
+            60
+          ],
+          [
+            75,
+            85
+          ],
+          [
+            90,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D4",
+      "metric_code": "M4.1",
+      "raw_value": 93.33333333333333,
+      "unit": "percent",
+      "normalized_score": 98.33,
+      "nominal_weight": 5.0,
+      "sample_size": 30,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 5,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            25,
+            25
+          ],
+          [
+            50,
+            50
+          ],
+          [
+            70,
+            75
+          ],
+          [
+            85,
+            90
+          ],
+          [
+            95,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D4",
+      "metric_code": "M4.2",
+      "raw_value": 36.666666666666664,
+      "unit": "percent",
+      "normalized_score": 39.0,
+      "nominal_weight": 4.0,
+      "sample_size": 30,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 4,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            25,
+            25
+          ],
+          [
+            50,
+            55
+          ],
+          [
+            75,
+            80
+          ],
+          [
+            90,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D4",
+      "metric_code": "M4.3",
+      "raw_value": 0.0,
+      "unit": "percent",
+      "normalized_score": 100.0,
+      "nominal_weight": 3.0,
+      "sample_size": 8,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 3,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            85
+          ],
+          [
+            15,
+            60
+          ],
+          [
+            30,
+            25
+          ],
+          [
+            50,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D4",
+      "metric_code": "M4.4",
+      "raw_value": 100.0,
+      "unit": "percent",
+      "normalized_score": 100.0,
+      "nominal_weight": 3.0,
+      "sample_size": 8,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 3,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            50,
+            60
+          ],
+          [
+            75,
+            85
+          ],
+          [
+            100,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D5",
+      "metric_code": "M5.1",
+      "raw_value": 5.555555555555555,
+      "unit": "percent",
+      "normalized_score": 6.67,
+      "nominal_weight": 5.0,
+      "sample_size": 18,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 5,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            50,
+            60
+          ],
+          [
+            75,
+            85
+          ],
+          [
+            100,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D5",
+      "metric_code": "M5.2",
+      "raw_value": 100.0,
+      "unit": "percent",
+      "normalized_score": 100.0,
+      "nominal_weight": 3.0,
+      "sample_size": 1,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 3,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            50,
+            60
+          ],
+          [
+            75,
+            85
+          ],
+          [
+            100,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D5",
+      "metric_code": "M5.3",
+      "raw_value": 94.44444444444444,
+      "unit": "percent",
+      "normalized_score": 0.0,
+      "nominal_weight": 4.0,
+      "sample_size": 18,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 4,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            90
+          ],
+          [
+            15,
+            70
+          ],
+          [
+            30,
+            40
+          ],
+          [
+            50,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D5",
+      "metric_code": "M5.4",
+      "raw_value": null,
+      "unit": "days",
+      "normalized_score": null,
+      "nominal_weight": 3.0,
+      "sample_size": 1,
+      "applicable": false,
+      "confidence": 20.0,
+      "thresholds": {
+        "weight": 3,
+        "unit": "days",
+        "minimum_samples": 5,
+        "direction": "lower",
+        "points": [
+          [
+            3,
+            100
+          ],
+          [
+            7,
+            90
+          ],
+          [
+            14,
+            75
+          ],
+          [
+            30,
+            55
+          ],
+          [
+            60,
+            30
+          ],
+          [
+            120,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D6",
+      "metric_code": "M6.1",
+      "raw_value": 83.33333333333333,
+      "unit": "percent",
+      "normalized_score": 0.0,
+      "nominal_weight": 4.0,
+      "sample_size": 30,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 4,
+        "unit": "percent",
+        "minimum_samples": 5,
+        "candidate_threshold": 0.82,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            90
+          ],
+          [
+            15,
+            70
+          ],
+          [
+            30,
+            40
+          ],
+          [
+            50,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D6",
+      "metric_code": "M6.2",
+      "raw_value": 76.66666666666667,
+      "unit": "percent",
+      "normalized_score": 0.0,
+      "nominal_weight": 3.0,
+      "sample_size": 30,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 3,
+        "unit": "percent",
+        "minimum_samples": 5,
+        "minimum_cluster_size": 3,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            90
+          ],
+          [
+            15,
+            70
+          ],
+          [
+            30,
+            40
+          ],
+          [
+            50,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D6",
+      "metric_code": "M6.3",
+      "raw_value": 0.0,
+      "unit": "points",
+      "normalized_score": 0.0,
+      "nominal_weight": 3.0,
+      "sample_size": 1,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 3,
+        "unit": "points",
+        "minimum_samples": 1,
+        "maximum_points": 3.0,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.3,
+            10
+          ],
+          [
+            0.7,
+            25
+          ],
+          [
+            1.25,
+            45
+          ],
+          [
+            2.0,
+            70
+          ],
+          [
+            2.6,
+            90
+          ],
+          [
+            3.0,
+            100
+          ]
+        ],
+        "infrastructure_points": {
+          "issue_template": 1.25,
+          "contributing": 0.75,
+          "issue_config": 0.4,
+          "support_or_faq": 0.3,
+          "triage_docs": 0.3
+        }
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": 23,
+      "dimension_code": "D1",
+      "finding_code": "LOW_M1.2",
+      "priority_score": 93.58,
+      "priority_level": "HIGH",
+      "title": "M1.2 指标需要改进",
+      "summary": "该指标得分为 0.00，低于健康阈值。",
+      "impact_text": "影响 28/30 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M1.2",
+      "affected_count": 28,
+      "sample_size": 30,
+      "evidence_ids": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": 27,
+      "dimension_code": "D5",
+      "finding_code": "LOW_M5.3",
+      "priority_score": 88.53,
+      "priority_level": "HIGH",
+      "title": "M5.3 指标需要改进",
+      "summary": "该指标得分为 0.00，低于健康阈值。",
+      "impact_text": "影响 17/18 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M5.3",
+      "affected_count": 17,
+      "sample_size": 18,
+      "evidence_ids": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": 30,
+      "dimension_code": "D6",
+      "finding_code": "LOW_M6.3",
+      "priority_score": 87.75,
+      "priority_level": "HIGH",
+      "title": "M6.3 指标需要改进",
+      "summary": "该指标得分为 0.00，低于健康阈值。",
+      "impact_text": "影响 1/1 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M6.3",
+      "affected_count": 1,
+      "sample_size": 1,
+      "evidence_ids": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": 26,
+      "dimension_code": "D5",
+      "finding_code": "LOW_M5.1",
+      "priority_score": 87.28,
+      "priority_level": "HIGH",
+      "title": "M5.1 指标需要改进",
+      "summary": "该指标得分为 6.67，低于健康阈值。",
+      "impact_text": "影响 17/18 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M5.1",
+      "affected_count": 17,
+      "sample_size": 18,
+      "evidence_ids": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": 28,
+      "dimension_code": "D6",
+      "finding_code": "LOW_M6.1",
+      "priority_score": 86.58,
+      "priority_level": "HIGH",
+      "title": "M6.1 指标需要改进",
+      "summary": "该指标得分为 0.00，低于健康阈值。",
+      "impact_text": "影响 25/30 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M6.1",
+      "affected_count": 25,
+      "sample_size": 30,
+      "evidence_ids": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": 29,
+      "dimension_code": "D6",
+      "finding_code": "LOW_M6.2",
+      "priority_score": 83.67,
+      "priority_level": "HIGH",
+      "title": "M6.2 指标需要改进",
+      "summary": "该指标得分为 0.00，低于健康阈值。",
+      "impact_text": "影响 23/30 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M6.2",
+      "affected_count": 23,
+      "sample_size": 30,
+      "evidence_ids": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": 25,
+      "dimension_code": "D4",
+      "finding_code": "LOW_M4.2",
+      "priority_score": 65.53,
+      "priority_level": "MEDIUM",
+      "title": "M4.2 指标需要改进",
+      "summary": "该指标得分为 39.00，低于健康阈值。",
+      "impact_text": "影响 19/30 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M4.2",
+      "affected_count": 19,
+      "sample_size": 30,
+      "evidence_ids": [
+        11,
+        12
+      ]
+    },
+    {
+      "id": 24,
+      "dimension_code": "D3",
+      "finding_code": "LOW_M3.2",
+      "priority_score": 55.75,
+      "priority_level": "MEDIUM",
+      "title": "M3.2 指标需要改进",
+      "summary": "该指标得分为 51.67，低于健康阈值。",
+      "impact_text": "影响 9/30 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M3.2",
+      "affected_count": 9,
+      "sample_size": 30,
+      "evidence_ids": [
+        11,
+        12
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": 11,
+      "issue_number": 14520,
+      "pr_number": null,
+      "type": "MAINTAINER_COMMENT",
+      "excerpt": "Hey @curtisholtt, thank you for the write up. Since this is an API problem, it's best to file a support ticket or post in the community forums. If you have an enterprise plan, you may want to opt for the support ticket.\n\nI'll close this out, but let us know if you have any questions. ",
+      "source_url": "https://github.com/cli/cli/issues/14520#issuecomment-5838086775",
+      "github_url": "https://github.com/cli/cli/issues/14520",
+      "actor_login": "BagToad",
+      "actor_association": "MEMBER",
+      "happened_at": "2026-09-25T19:08:24"
+    },
+    {
+      "id": 12,
+      "issue_number": 14495,
+      "pr_number": null,
+      "type": "MAINTAINER_COMMENT",
+      "excerpt": "@CynthiaLuijkx generally, `ghu_` tokens are unsupported by the API. However, there are a number of privileged apps that mint tokens that the API accepts, so I guess it makes sense to just allow the API to reject these. Thanks.",
+      "source_url": "https://github.com/cli/cli/issues/14495#issuecomment-5828904483",
+      "github_url": "https://github.com/cli/cli/issues/14495",
+      "actor_login": "williammartin",
+      "actor_association": "MEMBER",
+      "happened_at": "2026-09-25T07:52:11"
+    }
+  ],
+  "duplicate_summary": [
+    {
+      "issue_a": 14504,
+      "issue_b": 14505,
+      "similarity": 1.0,
+      "cluster_id": "cluster-2",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14492,
+      "issue_b": 14493,
+      "similarity": 0.99083,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14511,
+      "issue_b": 14512,
+      "similarity": 0.988215,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14510,
+      "issue_b": 14511,
+      "similarity": 0.973199,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14510,
+      "issue_b": 14512,
+      "similarity": 0.971253,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14492,
+      "issue_b": 14494,
+      "similarity": 0.965381,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14499,
+      "issue_b": 14503,
+      "similarity": 0.956279,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14501,
+      "issue_b": 14503,
+      "similarity": 0.956151,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14493,
+      "issue_b": 14494,
+      "similarity": 0.952121,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14525,
+      "issue_b": 14526,
+      "similarity": 0.947087,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14499,
+      "issue_b": 14501,
+      "similarity": 0.946685,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14503,
+      "issue_b": 14513,
+      "similarity": 0.92957,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14523,
+      "issue_b": 14526,
+      "similarity": 0.927153,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14523,
+      "issue_b": 14525,
+      "similarity": 0.926572,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14524,
+      "issue_b": 14525,
+      "similarity": 0.926042,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14523,
+      "issue_b": 14524,
+      "similarity": 0.925791,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14524,
+      "issue_b": 14526,
+      "similarity": 0.925447,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14518,
+      "issue_b": 14530,
+      "similarity": 0.919366,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14499,
+      "issue_b": 14513,
+      "similarity": 0.918139,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14501,
+      "issue_b": 14513,
+      "similarity": 0.916522,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14526,
+      "issue_b": 14528,
+      "similarity": 0.912576,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14525,
+      "issue_b": 14528,
+      "similarity": 0.912541,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14523,
+      "issue_b": 14528,
+      "similarity": 0.905083,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14525,
+      "issue_b": 14527,
+      "similarity": 0.902243,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14524,
+      "issue_b": 14529,
+      "similarity": 0.901698,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14526,
+      "issue_b": 14527,
+      "similarity": 0.900638,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14503,
+      "issue_b": 14521,
+      "similarity": 0.900067,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14524,
+      "issue_b": 14528,
+      "similarity": 0.894496,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14499,
+      "issue_b": 14521,
+      "similarity": 0.889776,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14513,
+      "issue_b": 14521,
+      "similarity": 0.887968,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14523,
+      "issue_b": 14527,
+      "similarity": 0.886222,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14524,
+      "issue_b": 14527,
+      "similarity": 0.885616,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14524,
+      "issue_b": 14530,
+      "similarity": 0.879534,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14525,
+      "issue_b": 14529,
+      "similarity": 0.87022,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14518,
+      "issue_b": 14524,
+      "similarity": 0.870107,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14501,
+      "issue_b": 14521,
+      "similarity": 0.869857,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14523,
+      "issue_b": 14529,
+      "similarity": 0.869646,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14520,
+      "issue_b": 14530,
+      "similarity": 0.867349,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14520,
+      "issue_b": 14529,
+      "similarity": 0.864044,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14527,
+      "issue_b": 14528,
+      "similarity": 0.86357,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14520,
+      "issue_b": 14524,
+      "similarity": 0.862467,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14529,
+      "issue_b": 14530,
+      "similarity": 0.860904,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14520,
+      "issue_b": 14525,
+      "similarity": 0.859782,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14493,
+      "issue_b": 14513,
+      "similarity": 0.858723,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14525,
+      "issue_b": 14530,
+      "similarity": 0.858087,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14492,
+      "issue_b": 14522,
+      "similarity": 0.857448,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14492,
+      "issue_b": 14513,
+      "similarity": 0.856068,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14526,
+      "issue_b": 14530,
+      "similarity": 0.854749,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14495,
+      "issue_b": 14521,
+      "similarity": 0.854386,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14494,
+      "issue_b": 14503,
+      "similarity": 0.854263,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14523,
+      "issue_b": 14530,
+      "similarity": 0.852867,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14494,
+      "issue_b": 14501,
+      "similarity": 0.851863,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14493,
+      "issue_b": 14522,
+      "similarity": 0.850382,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14528,
+      "issue_b": 14529,
+      "similarity": 0.849128,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14518,
+      "issue_b": 14529,
+      "similarity": 0.849095,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14513,
+      "issue_b": 14530,
+      "similarity": 0.848728,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14520,
+      "issue_b": 14522,
+      "similarity": 0.847708,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14520,
+      "issue_b": 14526,
+      "similarity": 0.847678,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14521,
+      "issue_b": 14529,
+      "similarity": 0.847544,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14526,
+      "issue_b": 14529,
+      "similarity": 0.844621,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14495,
+      "issue_b": 14529,
+      "similarity": 0.843307,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14510,
+      "issue_b": 14529,
+      "similarity": 0.8384,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14493,
+      "issue_b": 14526,
+      "similarity": 0.837896,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14527,
+      "issue_b": 14530,
+      "similarity": 0.837858,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14495,
+      "issue_b": 14520,
+      "similarity": 0.837155,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14493,
+      "issue_b": 14503,
+      "similarity": 0.836095,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14518,
+      "issue_b": 14525,
+      "similarity": 0.833914,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14493,
+      "issue_b": 14520,
+      "similarity": 0.833071,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14493,
+      "issue_b": 14525,
+      "similarity": 0.832193,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14520,
+      "issue_b": 14527,
+      "similarity": 0.831968,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14518,
+      "issue_b": 14520,
+      "similarity": 0.831808,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14522,
+      "issue_b": 14530,
+      "similarity": 0.831763,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14492,
+      "issue_b": 14503,
+      "similarity": 0.831494,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14511,
+      "issue_b": 14529,
+      "similarity": 0.830862,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14512,
+      "issue_b": 14529,
+      "similarity": 0.830793,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14492,
+      "issue_b": 14526,
+      "similarity": 0.830576,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14492,
+      "issue_b": 14501,
+      "similarity": 0.829254,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14495,
+      "issue_b": 14525,
+      "similarity": 0.829142,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14520,
+      "issue_b": 14523,
+      "similarity": 0.829021,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14492,
+      "issue_b": 14520,
+      "similarity": 0.828455,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14495,
+      "issue_b": 14510,
+      "similarity": 0.828443,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14518,
+      "issue_b": 14523,
+      "similarity": 0.828278,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14510,
+      "issue_b": 14521,
+      "similarity": 0.82785,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14494,
+      "issue_b": 14513,
+      "similarity": 0.827147,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14493,
+      "issue_b": 14524,
+      "similarity": 0.827065,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14493,
+      "issue_b": 14523,
+      "similarity": 0.826605,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14528,
+      "issue_b": 14530,
+      "similarity": 0.826492,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14492,
+      "issue_b": 14525,
+      "similarity": 0.826054,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14494,
+      "issue_b": 14499,
+      "similarity": 0.825978,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14493,
+      "issue_b": 14501,
+      "similarity": 0.825178,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14511,
+      "issue_b": 14521,
+      "similarity": 0.824938,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14518,
+      "issue_b": 14527,
+      "similarity": 0.82391,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14503,
+      "issue_b": 14529,
+      "similarity": 0.821954,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14521,
+      "issue_b": 14525,
+      "similarity": 0.821545,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14527,
+      "issue_b": 14529,
+      "similarity": 0.821091,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    },
+    {
+      "issue_a": 14492,
+      "issue_b": 14523,
+      "similarity": 0.820044,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    }
+  ],
+  "governance_summary": {
+    "package_id": 3,
+    "version": "1.0",
+    "status": "DRAFT",
+    "files": [
+      ".github/ISSUE_TEMPLATE/bug_report.yml",
+      ".github/ISSUE_TEMPLATE/feature_request.yml",
+      ".github/ISSUE_TEMPLATE/config.yml",
+      "CONTRIBUTING.md",
+      ".github/ISSUE_TRIAGE.md",
+      "docs/ISSUE_GUIDE.md"
+    ],
+    "labels": [
+      {
+        "action": "create",
+        "name": "type: bug",
+        "color": "d73a4a",
+        "description": "可复现的缺陷"
+      },
+      {
+        "action": "create",
+        "name": "type: feature",
+        "color": "a2eeef",
+        "description": "功能建议"
+      },
+      {
+        "action": "create",
+        "name": "needs-info",
+        "color": "fbca04",
+        "description": "等待提交者补充信息"
+      }
+    ]
+  },
+  "ai_metadata": {
+    "enabled": false,
+    "coverage_percent": 0.0,
+    "models": [],
+    "prompt_versions": [],
+    "analysis_count": 0
+  },
+  "evaluation": {
+    "case_id": "cli",
+    "scale": "large",
+    "repository_license": "MIT",
+    "source_ref": "9b031151a825bda919203c5202876a725d637368",
+    "manifest_analysis_date": "2026-09-25",
+    "executed_at": "2026-09-26T01:09:13.814454+00:00",
+    "elapsed_seconds": 13.261,
+    "github_api_calls": 9,
+    "llm_api_calls": 0,
+    "llm_config": {
+      "enabled": false,
+      "model": null,
+      "prompt_version": "issue-batch-v1"
+    }
+  }
+}

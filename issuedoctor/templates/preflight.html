@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block title %}仓库预检 · {{ t('app.name') }}{% endblock %}
+
+{% block content %}
+  {% set active_step = 2 %}{% include "components/workflow_steps.html" %}
+  <div class="mb-8 flex items-start justify-between border-b border-line pb-6">
+    <div>
+      <p class="text-sm text-slate-500">仓库预检</p>
+      <h1 class="mt-1 text-2xl font-semibold">{{ preflight.repository.full_name }}</h1>
+      <p class="mt-2 max-w-2xl text-sm text-slate-600">{{ preflight.repository.description or '仓库未提供描述' }}</p>
+    </div>
+    <a class="text-sm font-medium text-accent hover:underline" href="{{ preflight.repository.html_url }}" target="_blank" rel="noopener noreferrer">在 GitHub 查看</a>
+  </div>
+
+  <div class="grid gap-8 lg:grid-cols-2">
+    <section>
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">仓库信息</h2>
+      <dl class="mt-4 divide-y divide-line border-y border-line text-sm">
+        <div class="flex justify-between py-3"><dt>Stars</dt><dd>{{ preflight.repository.stars }}</dd></div>
+        <div class="flex justify-between py-3"><dt>主要语言</dt><dd>{{ preflight.repository.language or '未知' }}</dd></div>
+        <div class="flex justify-between py-3"><dt>默认分支</dt><dd><code>{{ preflight.repository.default_branch }}</code></dd></div>
+        <div class="flex justify-between py-3"><dt>Open Issues</dt><dd>{{ preflight.repository.open_issues }}</dd></div>
+        <div class="flex justify-between py-3"><dt>Open PRs</dt><dd>{{ preflight.repository.open_pull_requests }}</dd></div>
+        <div class="flex justify-between py-3"><dt>Token</dt><dd>{{ '已配置' if preflight.token_configured else '未配置（匿名读取）' }}</dd></div>
+        <div class="flex justify-between py-3"><dt>API 剩余额度</dt><dd>{{ preflight.rate_limit.remaining if preflight.rate_limit.remaining is not none else '未知' }}</dd></div>
+      </dl>
+    </section>
+
+    <section>
+      <h2 class="text-sm font-semibold uppercase tracking-wide text-slate-500">分析配置</h2>
+      <form id="analysis-form" class="mt-4 space-y-5 border border-line bg-white p-5" data-repository-url="{{ preflight.repository.html_url }}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label class="block text-sm">开始时间<input class="mt-2 w-full border border-line px-3 py-2" type="text" value="{{ preflight.analysis.window_start[:10] }}" readonly></label>
+        <div class="grid grid-cols-2 gap-4">
+          <label class="block text-sm">Issue 上限<input id="issue-limit" class="mt-2 w-full border border-line px-3 py-2" type="number" value="{{ preflight.analysis.issue_limit }}" min="1" max="1000"></label>
+          <label class="block text-sm">PR 上限<input id="pr-limit" class="mt-2 w-full border border-line px-3 py-2" type="number" value="{{ preflight.analysis.pr_limit }}" min="1" max="1000"></label>
+        </div>
+        <label class="block text-sm">AI 分析数量
+          <input id="ai-issue-count" class="mt-2 w-full border border-line px-3 py-2" type="number" value="{{ preflight.analysis.ai_recommended_issue_count }}" min="1" max="{{ preflight.analysis.ai_max_issue_count }}" data-batch-size="{{ preflight.analysis.ai_batch_issue_count }}" data-max-batches="{{ preflight.analysis.ai_max_batches }}" data-estimated-issues="{{ preflight.analysis.estimated_issues }}">
+          <span class="mt-2 block text-xs leading-5 text-slate-500">建议 {{ preflight.analysis.ai_recommended_issue_count }} 条；你可以自行设置 1–{{ preflight.analysis.ai_max_issue_count }} 条。数量越高，AI 覆盖率上限越高，但免费 API 更可能限流、分析时间也会更长。</span>
+        </label>
+        <div class="border-t border-line pt-4 text-sm text-slate-600">
+          <p>预计 Issues：{{ preflight.analysis.estimated_issues }}</p>
+          <p class="mt-1">预计 PRs：{{ preflight.analysis.estimated_pull_requests }}</p>
+          <p class="mt-1">预计 AI 分析 Issue：最多 <strong data-ai-estimated-items>{{ preflight.analysis.estimated_llm_items }}</strong> 条</p>
+          <p class="mt-1">预计 AI Issue 请求批次：约 <strong data-ai-estimated-batches>{{ preflight.analysis.estimated_llm_batches }}</strong> 次，另有剩余额度才用于重复复核</p>
+          <p class="mt-1 text-xs text-slate-500">单次审计字符预算 {{ preflight.analysis.ai_max_total_characters }}，重复候选最多复核 {{ preflight.analysis.ai_duplicate_pair_limit }} 对。缓存命中不重复请求。</p>
+          {% if preflight.analysis.ai_budget_profile == 'groq-free-safe' %}<p class="mt-2 text-xs text-accent">检测到 Groq：已自动使用免费额度保护配置，减少 8K TPM 限制导致的整批失败。</p>{% endif %}
+          {% if preflight.analysis.will_truncate %}<p class="mt-2 text-amber-700">记录数可能达到上限，报告会标记为截断。</p>{% endif %}
+        </div>
+        <button class="w-full bg-ink px-5 py-3 text-sm font-medium text-white" type="submit">开始审计</button>
+        <p class="text-xs leading-5 text-slate-500">下一步：进入分析进度页；完成后会自动跳转到诊断总览。这里只确认范围，尚未开始采集。</p>
+        <p class="text-sm text-red-700" data-analysis-error role="alert"></p>
+      </form>
+    </section>
+  </div>
+{% endblock %}
+
+{% block scripts %}<script src="{{ url_for('static', filename='js/preflight.js') }}" defer></script>{% endblock %}

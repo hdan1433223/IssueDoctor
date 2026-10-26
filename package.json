@@ -1,0 +1,16 @@
+{
+  "name": "issuedoctor-frontend",
+  "private": true,
+  "scripts": {
+    "build:css": "tailwindcss -i ./issuedoctor/static/css/input.css -o ./issuedoctor/static/css/app.css --minify",
+    "copy:echarts": "node -e \"require('fs').copyFileSync('node_modules/echarts/dist/echarts.min.js','issuedoctor/static/vendor/echarts.min.js')\"",
+    "build": "npm run build:css && npm run copy:echarts",
+    "test:js": "node --test tests/js/*.test.mjs"
+  },
+  "devDependencies": {
+    "tailwindcss": "3.4.17"
+  },
+  "dependencies": {
+    "echarts": "6.1.0"
+  }
+}

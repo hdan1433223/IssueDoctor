@@ -1,0 +1,4 @@
+﻿case_id,repository,scale,status,total_score,confidence,issue_count,pr_count,comment_count,elapsed_seconds,github_api_calls,llm_api_calls,error_code
+flask,pallets/flask,medium,SUCCEEDED,46.95,100.0,5,14,21,15.957,4,0,
+requests,psf/requests,medium-large,SUCCEEDED,42.0,100.0,12,3,45,9.965,4,0,
+cli,cli/cli,large,SUCCEEDED,49.82,90.0,30,30,529,13.261,9,0,

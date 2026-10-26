@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <title>IssueDoctor 报告 · {{ report.repository.full_name }}</title>
+    <style>
+      @page { size: A4; margin: 15mm 13mm; }
+      * { box-sizing: border-box; }
+      body { margin: 0; color: #1f2328; font: 12px/1.55 "Microsoft YaHei", "Noto Sans CJK SC", "Source Han Sans SC", Arial, sans-serif; }
+      h1, h2, h3 { line-height: 1.25; page-break-after: avoid; }
+      h1 { font-size: 28px; margin: 0 0 8px; }
+      h2 { border-bottom: 1px solid #d0d7de; font-size: 18px; margin-top: 28px; padding-bottom: 6px; }
+      h3 { font-size: 14px; margin: 18px 0 6px; }
+      table { border-collapse: collapse; width: 100%; }
+      th, td { border-bottom: 1px solid #d8dee4; padding: 7px 8px; text-align: left; vertical-align: top; }
+      th { background: #f6f8fa; font-size: 11px; }
+      .cover { display: flex; min-height: 250mm; flex-direction: column; justify-content: center; page-break-after: always; }
+      .muted { color: #57606a; }
+      .score { font-size: 52px; font-weight: 700; letter-spacing: -2px; }
+      .finding { border-left: 3px solid #9a6700; margin: 12px 0; padding: 2px 0 2px 12px; page-break-inside: avoid; }
+      .page-break { page-break-before: always; }
+      pre { background: #f6f8fa; border: 1px solid #d0d7de; padding: 10px; white-space: pre-wrap; }
+      @media print { a { color: inherit; text-decoration: none; } }
+    </style>
+  </head>
+  <body>
+    <section class="cover">
+      <p class="muted">IssueDoctor · Issue 流程健康度审计</p>
+      <h1>{{ report.repository.full_name }}</h1>
+      <p>{{ report.analysis_metadata.created_at[:10] }} · {{ report.analysis_metadata.mode }}</p>
+      <p class="score">{{ 'N/A' if report.scores.total is none else '%.1f'|format(report.scores.total) }}</p>
+      <p class="muted">规则基础健康度 · 数据置信度 {{ '%.1f'|format(report.scores.confidence or 0) }}</p>
+      {% if report.scores.ai_semantic is not none %}<p>AI 语义评分 {{ '%.1f'|format(report.scores.ai_semantic) }}{% if report.scores.enhanced_total is not none %} · 增强综合分 {{ '%.1f'|format(report.scores.enhanced_total) }}{% endif %}</p>{% endif %}
+    </section>
+
+    <h2>执行摘要</h2>
+    <p>本报告基于 GitHub 数据快照、确定性评分规则和本地相似度分析生成。LLM 语义评分单独标注；AI 请求成功率与置信度达标时，以 20% 权重参与增强综合分，不覆盖规则基础分。</p>
+    <table><tbody><tr><th>Issues</th><td>{{ report.analysis_metadata.issue_count }}</td><th>PRs</th><td>{{ report.analysis_metadata.pr_count }}</td></tr><tr><th>时间范围</th><td colspan="3">{{ report.analysis_metadata.window_start[:10] }} 至 {{ report.analysis_metadata.window_end[:10] }}</td></tr></tbody></table>
+
+    <h2>六维分析</h2>
+    <table><thead><tr><th>维度</th><th>分数</th><th>名义权重</th><th>有效权重</th><th>置信度</th></tr></thead><tbody>{% for item in report.scores.dimensions %}<tr><td>{{ item.code }}</td><td>{{ 'N/A' if item.score is none else '%.1f'|format(item.score) }}</td><td>{{ item.nominal_weight }}%</td><td>{{ item.effective_weight }}%</td><td>{{ item.confidence }}</td></tr>{% endfor %}</tbody></table>
+
+    <h2>主要 Findings</h2>
+    {% for item in report.findings %}<article class="finding"><h3>[{{ item.priority_level }}] {{ item.title }}</h3><p>{{ item.summary }}</p><p><strong>影响：</strong>{{ item.impact_text }}<br><strong>建议：</strong>{{ item.recommendation }}</p></article>{% else %}<p>没有低于健康阈值的适用指标。</p>{% endfor %}
+
+    <h2 class="page-break">证据</h2>
+    <table><thead><tr><th>对象</th><th>类型</th><th>摘要</th><th>链接</th></tr></thead><tbody>{% for item in report.evidence %}<tr><td>#{{ item.issue_number or item.pr_number }}</td><td>{{ item.type }}</td><td>{{ item.excerpt }}</td><td>{{ item.github_url }}</td></tr>{% else %}<tr><td colspan="4">无证据快照</td></tr>{% endfor %}</tbody></table>
+
+    <h2>相似 Issue</h2>
+    <table><thead><tr><th>Issue A</th><th>Issue B</th><th>相似度</th><th>聚类</th></tr></thead><tbody>{% for item in report.duplicate_summary %}<tr><td>#{{ item.issue_a }}</td><td>#{{ item.issue_b }}</td><td>{{ '%.3f'|format(item.similarity) }}</td><td>{{ item.cluster_id }}</td></tr>{% else %}<tr><td colspan="4">无高相似候选</td></tr>{% endfor %}</tbody></table>
+
+    <h2>治理建议</h2>
+    {% if report.governance_summary %}<p>治理包状态：{{ report.governance_summary.status }}</p><ul>{% for path in report.governance_summary.files %}<li>{{ path }}</li>{% endfor %}</ul>{% else %}<p>尚未生成治理包。</p>{% endif %}
+
+    <h2>方法与数据限制</h2>
+    <p>评分配置版本：{{ report.scoring_config.version or 'unknown' }}。{% if report.analysis_metadata.is_truncated %}本次分析达到数量上限，结果基于截断数据。{% else %}本次分析未命中配置数量上限。{% endif %}</p>
+    <p>AI 覆盖率：{{ '%.1f'|format(report.scores.ai_coverage_percent) }}%；AI 请求成功率：{{ '%.1f'|format(report.scores.ai_success_percent or 0) }}%。无 LLM 不降低数据置信度。</p>
+  </body>
+</html>

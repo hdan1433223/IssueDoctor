@@ -1,0 +1,173 @@
+version: "1.0"
+finding_healthy_score: 75
+dimensions:
+  D1:
+    name: 响应效率
+    weight: 20
+    metrics:
+      M1.1:
+        weight: 8
+        unit: hours
+        minimum_samples: 5
+        direction: lower
+        points: [[12, 100], [24, 90], [48, 75], [72, 60], [168, 35], [336, 10], [337, 0]]
+      M1.2:
+        weight: 7
+        unit: percent
+        minimum_samples: 1
+        direction: lower
+        points: [[0, 100], [5, 95], [10, 85], [20, 65], [35, 40], [50, 20], [70, 0]]
+      M1.3:
+        weight: 5
+        unit: percent
+        minimum_samples: 1
+        open_age_days: 30
+        inactive_days: 14
+        direction: lower
+        points: [[0, 100], [5, 90], [15, 75], [25, 55], [40, 30], [60, 0]]
+  D2:
+    name: 处理与积压健康度
+    weight: 20
+    metrics:
+      M2.1:
+        weight: 7
+        unit: days
+        minimum_samples: 5
+        direction: lower
+        points: [[3, 100], [7, 90], [14, 75], [30, 55], [60, 35], [90, 20], [180, 0]]
+      M2.2:
+        weight: 7
+        unit: percent
+        minimum_samples: 1
+        long_open_days: 90
+        direction: lower
+        points: [[0, 100], [5, 95], [10, 85], [20, 65], [35, 40], [50, 0]]
+      M2.3:
+        weight: 6
+        unit: ratio
+        minimum_samples: 10
+        minimum_window_days: 60
+        direction: higher
+        points: [[0, 0], [0.25, 15], [0.5, 40], [0.75, 70], [0.9, 90], [1.0, 100]]
+  D3:
+    name: Issue 信息质量
+    weight: 20
+    metrics:
+      M3.1:
+        weight: 10
+        unit: percent
+        minimum_samples: 5
+        direction: higher
+        points: [[0, 0], [40, 35], [60, 60], [75, 80], [90, 95], [100, 100]]
+      M3.2:
+        weight: 5
+        unit: percent
+        minimum_samples: 1
+        low_information_characters: 80
+        direction: lower
+        points: [[0, 100], [5, 95], [15, 80], [25, 60], [40, 35], [60, 0]]
+      M3.3:
+        weight: 5
+        unit: percent
+        minimum_samples: 1
+        minimum_headings: 3
+        direction: higher
+        points: [[0, 0], [25, 35], [50, 60], [75, 85], [90, 100]]
+  D4:
+    name: 分类与标签治理
+    weight: 15
+    metrics:
+      M4.1:
+        weight: 5
+        unit: percent
+        minimum_samples: 1
+        direction: higher
+        points: [[0, 0], [25, 25], [50, 50], [70, 75], [85, 90], [95, 100]]
+      M4.2:
+        weight: 4
+        unit: percent
+        minimum_samples: 1
+        direction: higher
+        points: [[0, 0], [25, 25], [50, 55], [75, 80], [90, 100]]
+      M4.3:
+        weight: 3
+        unit: percent
+        minimum_samples: 1
+        direction: lower
+        points: [[0, 100], [5, 85], [15, 60], [30, 25], [50, 0]]
+      M4.4:
+        weight: 3
+        unit: percent
+        minimum_samples: 1
+        direction: higher
+        points: [[0, 0], [25, 30], [50, 60], [75, 85], [100, 100]]
+  D5:
+    name: 协作闭环健康度
+    weight: 15
+    metrics:
+      M5.1:
+        weight: 5
+        unit: percent
+        minimum_samples: 1
+        direction: higher
+        points: [[0, 0], [25, 30], [50, 60], [75, 85], [100, 100]]
+      M5.2:
+        weight: 3
+        unit: percent
+        minimum_samples: 1
+        direction: higher
+        points: [[0, 0], [25, 30], [50, 60], [75, 85], [100, 100]]
+      M5.3:
+        weight: 4
+        unit: percent
+        minimum_samples: 1
+        direction: lower
+        points: [[0, 100], [5, 90], [15, 70], [30, 40], [50, 0]]
+      M5.4:
+        weight: 3
+        unit: days
+        minimum_samples: 5
+        direction: lower
+        points: [[3, 100], [7, 90], [14, 75], [30, 55], [60, 30], [120, 0]]
+  D6:
+    name: 重复问题与知识沉淀
+    weight: 10
+    metrics:
+      M6.1:
+        weight: 4
+        unit: percent
+        minimum_samples: 5
+        # 阈值按后端各自的分数尺度标定，不可混用：
+        #   model   —— 稠密语义向量（sentence-transformers），分数分布偏高。
+        #   hashing —— 内置字符 n-gram 哈希 TF-IDF，分数分布偏低。
+        # 使用未被选中的后端阈值会导致候选全部落空或误报。
+        candidate_threshold: 0.82
+        candidate_threshold_hashing: 0.28
+        direction: lower
+        points: [[0, 100], [5, 90], [15, 70], [30, 40], [50, 0]]
+      M6.2:
+        weight: 3
+        unit: percent
+        minimum_samples: 5
+        minimum_cluster_size: 3
+        direction: lower
+        points: [[0, 100], [5, 90], [15, 70], [30, 40], [50, 0]]
+      M6.3:
+        weight: 3
+        unit: points
+        minimum_samples: 1
+        maximum_points: 3.0
+        direction: higher
+        points: [[0, 0], [0.3, 10], [0.7, 25], [1.25, 45], [2.0, 70], [2.6, 90], [3.0, 100]]
+        infrastructure_points:
+          issue_template: 1.25
+          contributing: 0.75
+          issue_config: 0.40
+          support_or_faq: 0.30
+          triage_docs: 0.30
+confidence:
+  sample_adequacy_weight: 40
+  api_completeness_weight: 30
+  truncation_weight: 20
+  key_fields_weight: 10
+

@@ -1,0 +1,10 @@
+# 可选能力：本地语义向量（sentence-transformers）
+#
+# 启用后，重复问题检测会使用本地 Embedding 模型而非内置的纯 Python 相似度。
+# 注意：sentence-transformers 会连带安装 PyTorch，安装体积约 700 MB 以上。
+#
+#   pip install -r requirements-vector.txt
+#
+# 未安装时系统自动使用内置 hashing TF-IDF，功能不缺失，仅精度略有差别。
+sentence-transformers==5.1.1
+numpy==2.2.6

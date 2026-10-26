@@ -1,0 +1,23 @@
+<div class="overflow-x-auto border border-line bg-white">
+  <table class="w-full text-left text-sm">
+    <thead class="border-b border-line bg-canvas text-xs text-slate-500">
+      <tr><th class="px-4 py-3">对象</th><th class="px-4 py-3">类型</th><th class="px-4 py-3">证据摘要</th><th class="px-4 py-3">操作</th></tr>
+    </thead>
+    <tbody class="divide-y divide-line">
+      {% for item in evidence %}
+        <tr>
+          <td class="whitespace-nowrap px-4 py-3">{% if item.issue_number %}Issue #{{ item.issue_number }}{% elif item.pr_number %}PR #{{ item.pr_number }}{% endif %}</td>
+          <td class="px-4 py-3 text-xs text-slate-500">{{ item.type }}</td>
+          <td class="max-w-xl truncate px-4 py-3">{{ item.excerpt }}</td>
+          <td class="whitespace-nowrap px-4 py-3">
+            <button class="text-accent hover:underline" type="button" data-evidence='{{ item|tojson }}'>详情</button>
+            <a class="ml-3 text-accent hover:underline" href="{{ item.github_url }}" target="_blank" rel="noopener noreferrer">GitHub</a>
+          </td>
+        </tr>
+      {% else %}
+        <tr><td class="px-4 py-8 text-center text-slate-500" colspan="4">当前没有可展示的证据快照。</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+

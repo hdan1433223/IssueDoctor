@@ -1,0 +1,56 @@
+{
+  "overall": {
+    "schema_version": "1.0",
+    "sample_count": 24,
+    "accuracy": 0.7916666666666666,
+    "macro_f1_across_tasks": 0.7733333333333333,
+    "pair_precision": 1.0,
+    "pair_recall": 0.5,
+    "pair_f1": 0.6666666666666666,
+    "annotator_count": 1,
+    "inter_annotator_agreement": null,
+    "limitations": "单标注者开发期验收集；结果不代表外部仓库总体性能。"
+  },
+  "by_task": [
+    {
+      "task": "ai_evidence_consistency",
+      "sample_count": 4,
+      "accuracy": 1.0,
+      "precision_macro": 1.0,
+      "recall_macro": 1.0,
+      "f1_macro": 1.0
+    },
+    {
+      "task": "bug_completeness",
+      "sample_count": 4,
+      "accuracy": 0.75,
+      "precision_macro": 0.8333333333333333,
+      "recall_macro": 0.75,
+      "f1_macro": 0.7333333333333334
+    },
+    {
+      "task": "closure_reason",
+      "sample_count": 4,
+      "accuracy": 0.75,
+      "precision_macro": 0.8333333333333333,
+      "recall_macro": 0.75,
+      "f1_macro": 0.7333333333333334
+    },
+    {
+      "task": "duplicate_pair",
+      "sample_count": 4,
+      "accuracy": 0.75,
+      "precision_macro": 0.8333333333333333,
+      "recall_macro": 0.75,
+      "f1_macro": 0.7333333333333334
+    },
+    {
+      "task": "issue_type",
+      "sample_count": 8,
+      "accuracy": 0.75,
+      "precision_macro": 0.7,
+      "recall_macro": 0.7,
+      "f1_macro": 0.6666666666666666
+    }
+  ]
+}

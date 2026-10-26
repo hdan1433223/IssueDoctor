@@ -1,0 +1,1974 @@
+{
+  "schema_version": "1.0",
+  "repository": {
+    "full_name": "pallets/flask",
+    "html_url": "https://github.com/pallets/flask",
+    "default_branch": "main",
+    "primary_language": "Python",
+    "stars_count": 74779
+  },
+  "analysis_metadata": {
+    "id": "9b0b88e7-fd80-4765-9b27-a09189d37743",
+    "status": "SUCCEEDED",
+    "mode": "BASIC",
+    "created_at": "2026-09-26T01:08:34.603121",
+    "started_at": "2026-09-26T01:08:34.619591",
+    "finished_at": "2026-09-26T01:08:50.513158",
+    "window_start": "2026-08-26T01:08:34.603121",
+    "window_end": "2026-09-26T01:08:34.603121",
+    "issue_count": 5,
+    "pr_count": 14,
+    "comment_count": 21,
+    "is_truncated": false
+  },
+  "analysis_config": {
+    "version": "1.0",
+    "window_months": 1,
+    "issue_limit": 500,
+    "pr_limit": 500,
+    "max_issue_limit": 1000,
+    "max_pr_limit": 1000,
+    "llm_batch_issue_count": 15,
+    "llm_batch_total_chars": 18000,
+    "issue_body_max_chars": 4000,
+    "background_max_workers": 1,
+    "embedding_model": "BAAI/bge-small-zh-v1.5",
+    "embedding_max_characters": 4000,
+    "max_llm_retries": 2,
+    "llm_prompt_version": "issue-batch-v1",
+    "runtime": {
+      "github_api_calls": 4,
+      "llm_api_calls": 0,
+      "embedding_mode": "embedding"
+    }
+  },
+  "scoring_config": {
+    "version": "1.0",
+    "finding_healthy_score": 75,
+    "dimensions": {
+      "D1": {
+        "name": "响应效率",
+        "weight": 20,
+        "metrics": {
+          "M1.1": {
+            "weight": 8,
+            "unit": "hours",
+            "minimum_samples": 5,
+            "direction": "lower",
+            "points": [
+              [
+                12,
+                100
+              ],
+              [
+                24,
+                90
+              ],
+              [
+                48,
+                75
+              ],
+              [
+                72,
+                60
+              ],
+              [
+                168,
+                35
+              ],
+              [
+                336,
+                10
+              ],
+              [
+                337,
+                0
+              ]
+            ]
+          },
+          "M1.2": {
+            "weight": 7,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                95
+              ],
+              [
+                10,
+                85
+              ],
+              [
+                20,
+                65
+              ],
+              [
+                35,
+                40
+              ],
+              [
+                50,
+                20
+              ],
+              [
+                70,
+                0
+              ]
+            ]
+          },
+          "M1.3": {
+            "weight": 5,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "open_age_days": 30,
+            "inactive_days": 14,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                90
+              ],
+              [
+                15,
+                75
+              ],
+              [
+                25,
+                55
+              ],
+              [
+                40,
+                30
+              ],
+              [
+                60,
+                0
+              ]
+            ]
+          }
+        }
+      },
+      "D2": {
+        "name": "处理与积压健康度",
+        "weight": 20,
+        "metrics": {
+          "M2.1": {
+            "weight": 7,
+            "unit": "days",
+            "minimum_samples": 5,
+            "direction": "lower",
+            "points": [
+              [
+                3,
+                100
+              ],
+              [
+                7,
+                90
+              ],
+              [
+                14,
+                75
+              ],
+              [
+                30,
+                55
+              ],
+              [
+                60,
+                35
+              ],
+              [
+                90,
+                20
+              ],
+              [
+                180,
+                0
+              ]
+            ]
+          },
+          "M2.2": {
+            "weight": 7,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "long_open_days": 90,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                95
+              ],
+              [
+                10,
+                85
+              ],
+              [
+                20,
+                65
+              ],
+              [
+                35,
+                40
+              ],
+              [
+                50,
+                0
+              ]
+            ]
+          },
+          "M2.3": {
+            "weight": 6,
+            "unit": "ratio",
+            "minimum_samples": 10,
+            "minimum_window_days": 60,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                0.25,
+                15
+              ],
+              [
+                0.5,
+                40
+              ],
+              [
+                0.75,
+                70
+              ],
+              [
+                0.9,
+                90
+              ],
+              [
+                1.0,
+                100
+              ]
+            ]
+          }
+        }
+      },
+      "D3": {
+        "name": "Issue 信息质量",
+        "weight": 20,
+        "metrics": {
+          "M3.1": {
+            "weight": 10,
+            "unit": "percent",
+            "minimum_samples": 5,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                40,
+                35
+              ],
+              [
+                60,
+                60
+              ],
+              [
+                75,
+                80
+              ],
+              [
+                90,
+                95
+              ],
+              [
+                100,
+                100
+              ]
+            ]
+          },
+          "M3.2": {
+            "weight": 5,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "low_information_characters": 80,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                95
+              ],
+              [
+                15,
+                80
+              ],
+              [
+                25,
+                60
+              ],
+              [
+                40,
+                35
+              ],
+              [
+                60,
+                0
+              ]
+            ]
+          },
+          "M3.3": {
+            "weight": 5,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "minimum_headings": 3,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                25,
+                35
+              ],
+              [
+                50,
+                60
+              ],
+              [
+                75,
+                85
+              ],
+              [
+                90,
+                100
+              ]
+            ]
+          }
+        }
+      },
+      "D4": {
+        "name": "分类与标签治理",
+        "weight": 15,
+        "metrics": {
+          "M4.1": {
+            "weight": 5,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                25,
+                25
+              ],
+              [
+                50,
+                50
+              ],
+              [
+                70,
+                75
+              ],
+              [
+                85,
+                90
+              ],
+              [
+                95,
+                100
+              ]
+            ]
+          },
+          "M4.2": {
+            "weight": 4,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                25,
+                25
+              ],
+              [
+                50,
+                55
+              ],
+              [
+                75,
+                80
+              ],
+              [
+                90,
+                100
+              ]
+            ]
+          },
+          "M4.3": {
+            "weight": 3,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                85
+              ],
+              [
+                15,
+                60
+              ],
+              [
+                30,
+                25
+              ],
+              [
+                50,
+                0
+              ]
+            ]
+          },
+          "M4.4": {
+            "weight": 3,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                25,
+                30
+              ],
+              [
+                50,
+                60
+              ],
+              [
+                75,
+                85
+              ],
+              [
+                100,
+                100
+              ]
+            ]
+          }
+        }
+      },
+      "D5": {
+        "name": "协作闭环健康度",
+        "weight": 15,
+        "metrics": {
+          "M5.1": {
+            "weight": 5,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                25,
+                30
+              ],
+              [
+                50,
+                60
+              ],
+              [
+                75,
+                85
+              ],
+              [
+                100,
+                100
+              ]
+            ]
+          },
+          "M5.2": {
+            "weight": 3,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                25,
+                30
+              ],
+              [
+                50,
+                60
+              ],
+              [
+                75,
+                85
+              ],
+              [
+                100,
+                100
+              ]
+            ]
+          },
+          "M5.3": {
+            "weight": 4,
+            "unit": "percent",
+            "minimum_samples": 1,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                90
+              ],
+              [
+                15,
+                70
+              ],
+              [
+                30,
+                40
+              ],
+              [
+                50,
+                0
+              ]
+            ]
+          },
+          "M5.4": {
+            "weight": 3,
+            "unit": "days",
+            "minimum_samples": 5,
+            "direction": "lower",
+            "points": [
+              [
+                3,
+                100
+              ],
+              [
+                7,
+                90
+              ],
+              [
+                14,
+                75
+              ],
+              [
+                30,
+                55
+              ],
+              [
+                60,
+                30
+              ],
+              [
+                120,
+                0
+              ]
+            ]
+          }
+        }
+      },
+      "D6": {
+        "name": "重复问题与知识沉淀",
+        "weight": 10,
+        "metrics": {
+          "M6.1": {
+            "weight": 4,
+            "unit": "percent",
+            "minimum_samples": 5,
+            "candidate_threshold": 0.82,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                90
+              ],
+              [
+                15,
+                70
+              ],
+              [
+                30,
+                40
+              ],
+              [
+                50,
+                0
+              ]
+            ]
+          },
+          "M6.2": {
+            "weight": 3,
+            "unit": "percent",
+            "minimum_samples": 5,
+            "minimum_cluster_size": 3,
+            "direction": "lower",
+            "points": [
+              [
+                0,
+                100
+              ],
+              [
+                5,
+                90
+              ],
+              [
+                15,
+                70
+              ],
+              [
+                30,
+                40
+              ],
+              [
+                50,
+                0
+              ]
+            ]
+          },
+          "M6.3": {
+            "weight": 3,
+            "unit": "points",
+            "minimum_samples": 1,
+            "maximum_points": 3.0,
+            "direction": "higher",
+            "points": [
+              [
+                0,
+                0
+              ],
+              [
+                0.3,
+                10
+              ],
+              [
+                0.7,
+                25
+              ],
+              [
+                1.25,
+                45
+              ],
+              [
+                2.0,
+                70
+              ],
+              [
+                2.6,
+                90
+              ],
+              [
+                3.0,
+                100
+              ]
+            ],
+            "infrastructure_points": {
+              "issue_template": 1.25,
+              "contributing": 0.75,
+              "issue_config": 0.4,
+              "support_or_faq": 0.3,
+              "triage_docs": 0.3
+            }
+          }
+        }
+      }
+    },
+    "confidence": {
+      "sample_adequacy_weight": 40,
+      "api_completeness_weight": 30,
+      "truncation_weight": 20,
+      "key_fields_weight": 10
+    }
+  },
+  "scores": {
+    "total": 46.95,
+    "confidence": 100.0,
+    "ai_coverage_percent": 0.0,
+    "dimensions": [
+      {
+        "code": "D1",
+        "score": 33.33,
+        "nominal_weight": 20.0,
+        "effective_weight": 20.0,
+        "confidence": 100.0
+      },
+      {
+        "code": "D2",
+        "score": 100.0,
+        "nominal_weight": 20.0,
+        "effective_weight": 20.0,
+        "confidence": 100.0
+      },
+      {
+        "code": "D3",
+        "score": 49.0,
+        "nominal_weight": 20.0,
+        "effective_weight": 20.0,
+        "confidence": 100.0
+      },
+      {
+        "code": "D4",
+        "score": 32.0,
+        "nominal_weight": 15.0,
+        "effective_weight": 15.0,
+        "confidence": 100.0
+      },
+      {
+        "code": "D5",
+        "score": 12.5,
+        "nominal_weight": 15.0,
+        "effective_weight": 15.0,
+        "confidence": 100.0
+      },
+      {
+        "code": "D6",
+        "score": 38.0,
+        "nominal_weight": 10.0,
+        "effective_weight": 10.0,
+        "confidence": 100.0
+      }
+    ]
+  },
+  "metrics": [
+    {
+      "dimension_code": "D1",
+      "metric_code": "M1.1",
+      "raw_value": null,
+      "unit": "hours",
+      "normalized_score": null,
+      "nominal_weight": 8.0,
+      "sample_size": 3,
+      "applicable": false,
+      "confidence": 60.0,
+      "thresholds": {
+        "weight": 8,
+        "unit": "hours",
+        "minimum_samples": 5,
+        "direction": "lower",
+        "points": [
+          [
+            12,
+            100
+          ],
+          [
+            24,
+            90
+          ],
+          [
+            48,
+            75
+          ],
+          [
+            72,
+            60
+          ],
+          [
+            168,
+            35
+          ],
+          [
+            336,
+            10
+          ],
+          [
+            337,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D1",
+      "metric_code": "M1.2",
+      "raw_value": 40.0,
+      "unit": "percent",
+      "normalized_score": 33.33,
+      "nominal_weight": 7.0,
+      "sample_size": 5,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 7,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            95
+          ],
+          [
+            10,
+            85
+          ],
+          [
+            20,
+            65
+          ],
+          [
+            35,
+            40
+          ],
+          [
+            50,
+            20
+          ],
+          [
+            70,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D1",
+      "metric_code": "M1.3",
+      "raw_value": null,
+      "unit": "percent",
+      "normalized_score": null,
+      "nominal_weight": 5.0,
+      "sample_size": 0,
+      "applicable": false,
+      "confidence": 0.0,
+      "thresholds": {
+        "weight": 5,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "open_age_days": 30,
+        "inactive_days": 14,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            90
+          ],
+          [
+            15,
+            75
+          ],
+          [
+            25,
+            55
+          ],
+          [
+            40,
+            30
+          ],
+          [
+            60,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D2",
+      "metric_code": "M2.1",
+      "raw_value": null,
+      "unit": "days",
+      "normalized_score": null,
+      "nominal_weight": 7.0,
+      "sample_size": 4,
+      "applicable": false,
+      "confidence": 80.0,
+      "thresholds": {
+        "weight": 7,
+        "unit": "days",
+        "minimum_samples": 5,
+        "direction": "lower",
+        "points": [
+          [
+            3,
+            100
+          ],
+          [
+            7,
+            90
+          ],
+          [
+            14,
+            75
+          ],
+          [
+            30,
+            55
+          ],
+          [
+            60,
+            35
+          ],
+          [
+            90,
+            20
+          ],
+          [
+            180,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D2",
+      "metric_code": "M2.2",
+      "raw_value": 0.0,
+      "unit": "percent",
+      "normalized_score": 100.0,
+      "nominal_weight": 7.0,
+      "sample_size": 1,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 7,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "long_open_days": 90,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            95
+          ],
+          [
+            10,
+            85
+          ],
+          [
+            20,
+            65
+          ],
+          [
+            35,
+            40
+          ],
+          [
+            50,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D2",
+      "metric_code": "M2.3",
+      "raw_value": null,
+      "unit": "ratio",
+      "normalized_score": null,
+      "nominal_weight": 6.0,
+      "sample_size": 5,
+      "applicable": false,
+      "confidence": 50.0,
+      "thresholds": {
+        "weight": 6,
+        "unit": "ratio",
+        "minimum_samples": 10,
+        "minimum_window_days": 60,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.25,
+            15
+          ],
+          [
+            0.5,
+            40
+          ],
+          [
+            0.75,
+            70
+          ],
+          [
+            0.9,
+            90
+          ],
+          [
+            1.0,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D3",
+      "metric_code": "M3.1",
+      "raw_value": null,
+      "unit": "percent",
+      "normalized_score": null,
+      "nominal_weight": 10.0,
+      "sample_size": 0,
+      "applicable": false,
+      "confidence": 0.0,
+      "thresholds": {
+        "weight": 10,
+        "unit": "percent",
+        "minimum_samples": 5,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            40,
+            35
+          ],
+          [
+            60,
+            60
+          ],
+          [
+            75,
+            80
+          ],
+          [
+            90,
+            95
+          ],
+          [
+            100,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D3",
+      "metric_code": "M3.2",
+      "raw_value": 20.0,
+      "unit": "percent",
+      "normalized_score": 70.0,
+      "nominal_weight": 5.0,
+      "sample_size": 5,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 5,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "low_information_characters": 80,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            95
+          ],
+          [
+            15,
+            80
+          ],
+          [
+            25,
+            60
+          ],
+          [
+            40,
+            35
+          ],
+          [
+            60,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D3",
+      "metric_code": "M3.3",
+      "raw_value": 20.0,
+      "unit": "percent",
+      "normalized_score": 28.0,
+      "nominal_weight": 5.0,
+      "sample_size": 5,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 5,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "minimum_headings": 3,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            25,
+            35
+          ],
+          [
+            50,
+            60
+          ],
+          [
+            75,
+            85
+          ],
+          [
+            90,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D4",
+      "metric_code": "M4.1",
+      "raw_value": 20.0,
+      "unit": "percent",
+      "normalized_score": 20.0,
+      "nominal_weight": 5.0,
+      "sample_size": 5,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 5,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            25,
+            25
+          ],
+          [
+            50,
+            50
+          ],
+          [
+            70,
+            75
+          ],
+          [
+            85,
+            90
+          ],
+          [
+            95,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D4",
+      "metric_code": "M4.2",
+      "raw_value": 20.0,
+      "unit": "percent",
+      "normalized_score": 20.0,
+      "nominal_weight": 4.0,
+      "sample_size": 5,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 4,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            25,
+            25
+          ],
+          [
+            50,
+            55
+          ],
+          [
+            75,
+            80
+          ],
+          [
+            90,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D4",
+      "metric_code": "M4.3",
+      "raw_value": 0.0,
+      "unit": "percent",
+      "normalized_score": 100.0,
+      "nominal_weight": 3.0,
+      "sample_size": 1,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 3,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            85
+          ],
+          [
+            15,
+            60
+          ],
+          [
+            30,
+            25
+          ],
+          [
+            50,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D4",
+      "metric_code": "M4.4",
+      "raw_value": 0.0,
+      "unit": "percent",
+      "normalized_score": 0.0,
+      "nominal_weight": 3.0,
+      "sample_size": 1,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 3,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            50,
+            60
+          ],
+          [
+            75,
+            85
+          ],
+          [
+            100,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D5",
+      "metric_code": "M5.1",
+      "raw_value": 25.0,
+      "unit": "percent",
+      "normalized_score": 30.0,
+      "nominal_weight": 5.0,
+      "sample_size": 4,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 5,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            50,
+            60
+          ],
+          [
+            75,
+            85
+          ],
+          [
+            100,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D5",
+      "metric_code": "M5.2",
+      "raw_value": 0.0,
+      "unit": "percent",
+      "normalized_score": 0.0,
+      "nominal_weight": 3.0,
+      "sample_size": 2,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 3,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            25,
+            30
+          ],
+          [
+            50,
+            60
+          ],
+          [
+            75,
+            85
+          ],
+          [
+            100,
+            100
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D5",
+      "metric_code": "M5.3",
+      "raw_value": 75.0,
+      "unit": "percent",
+      "normalized_score": 0.0,
+      "nominal_weight": 4.0,
+      "sample_size": 4,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 4,
+        "unit": "percent",
+        "minimum_samples": 1,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            90
+          ],
+          [
+            15,
+            70
+          ],
+          [
+            30,
+            40
+          ],
+          [
+            50,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D5",
+      "metric_code": "M5.4",
+      "raw_value": null,
+      "unit": "days",
+      "normalized_score": null,
+      "nominal_weight": 3.0,
+      "sample_size": 0,
+      "applicable": false,
+      "confidence": 0.0,
+      "thresholds": {
+        "weight": 3,
+        "unit": "days",
+        "minimum_samples": 5,
+        "direction": "lower",
+        "points": [
+          [
+            3,
+            100
+          ],
+          [
+            7,
+            90
+          ],
+          [
+            14,
+            75
+          ],
+          [
+            30,
+            55
+          ],
+          [
+            60,
+            30
+          ],
+          [
+            120,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D6",
+      "metric_code": "M6.1",
+      "raw_value": 40.0,
+      "unit": "percent",
+      "normalized_score": 20.0,
+      "nominal_weight": 4.0,
+      "sample_size": 5,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 4,
+        "unit": "percent",
+        "minimum_samples": 5,
+        "candidate_threshold": 0.82,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            90
+          ],
+          [
+            15,
+            70
+          ],
+          [
+            30,
+            40
+          ],
+          [
+            50,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D6",
+      "metric_code": "M6.2",
+      "raw_value": 0.0,
+      "unit": "percent",
+      "normalized_score": 100.0,
+      "nominal_weight": 3.0,
+      "sample_size": 5,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 3,
+        "unit": "percent",
+        "minimum_samples": 5,
+        "minimum_cluster_size": 3,
+        "direction": "lower",
+        "points": [
+          [
+            0,
+            100
+          ],
+          [
+            5,
+            90
+          ],
+          [
+            15,
+            70
+          ],
+          [
+            30,
+            40
+          ],
+          [
+            50,
+            0
+          ]
+        ]
+      }
+    },
+    {
+      "dimension_code": "D6",
+      "metric_code": "M6.3",
+      "raw_value": 0.0,
+      "unit": "points",
+      "normalized_score": 0.0,
+      "nominal_weight": 3.0,
+      "sample_size": 1,
+      "applicable": true,
+      "confidence": 100.0,
+      "thresholds": {
+        "weight": 3,
+        "unit": "points",
+        "minimum_samples": 1,
+        "maximum_points": 3.0,
+        "direction": "higher",
+        "points": [
+          [
+            0,
+            0
+          ],
+          [
+            0.3,
+            10
+          ],
+          [
+            0.7,
+            25
+          ],
+          [
+            1.25,
+            45
+          ],
+          [
+            2.0,
+            70
+          ],
+          [
+            2.6,
+            90
+          ],
+          [
+            3.0,
+            100
+          ]
+        ],
+        "infrastructure_points": {
+          "issue_template": 1.25,
+          "contributing": 0.75,
+          "issue_config": 0.4,
+          "support_or_faq": 0.3,
+          "triage_docs": 0.3
+        }
+      }
+    }
+  ],
+  "findings": [
+    {
+      "id": 6,
+      "dimension_code": "D4",
+      "finding_code": "LOW_M4.4",
+      "priority_score": 87.75,
+      "priority_level": "HIGH",
+      "title": "M4.4 指标需要改进",
+      "summary": "该指标得分为 0.00，低于健康阈值。",
+      "impact_text": "影响 1/1 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M4.4",
+      "affected_count": 1,
+      "sample_size": 1,
+      "evidence_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 8,
+      "dimension_code": "D5",
+      "finding_code": "LOW_M5.2",
+      "priority_score": 87.75,
+      "priority_level": "HIGH",
+      "title": "M5.2 指标需要改进",
+      "summary": "该指标得分为 0.00，低于健康阈值。",
+      "impact_text": "影响 2/2 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M5.2",
+      "affected_count": 2,
+      "sample_size": 2,
+      "evidence_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 11,
+      "dimension_code": "D6",
+      "finding_code": "LOW_M6.3",
+      "priority_score": 87.75,
+      "priority_level": "HIGH",
+      "title": "M6.3 指标需要改进",
+      "summary": "该指标得分为 0.00，低于健康阈值。",
+      "impact_text": "影响 1/1 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M6.3",
+      "affected_count": 1,
+      "sample_size": 1,
+      "evidence_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 9,
+      "dimension_code": "D5",
+      "finding_code": "LOW_M5.3",
+      "priority_score": 85.12,
+      "priority_level": "HIGH",
+      "title": "M5.3 指标需要改进",
+      "summary": "该指标得分为 0.00，低于健康阈值。",
+      "impact_text": "影响 3/4 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M5.3",
+      "affected_count": 3,
+      "sample_size": 4,
+      "evidence_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 4,
+      "dimension_code": "D4",
+      "finding_code": "LOW_M4.1",
+      "priority_score": 78.75,
+      "priority_level": "HIGH",
+      "title": "M4.1 指标需要改进",
+      "summary": "该指标得分为 20.00，低于健康阈值。",
+      "impact_text": "影响 4/5 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M4.1",
+      "affected_count": 4,
+      "sample_size": 5,
+      "evidence_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 5,
+      "dimension_code": "D4",
+      "finding_code": "LOW_M4.2",
+      "priority_score": 77.0,
+      "priority_level": "HIGH",
+      "title": "M4.2 指标需要改进",
+      "summary": "该指标得分为 20.00，低于健康阈值。",
+      "impact_text": "影响 4/5 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M4.2",
+      "affected_count": 4,
+      "sample_size": 5,
+      "evidence_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 3,
+      "dimension_code": "D3",
+      "finding_code": "LOW_M3.3",
+      "priority_score": 75.15,
+      "priority_level": "HIGH",
+      "title": "M3.3 指标需要改进",
+      "summary": "该指标得分为 28.00，低于健康阈值。",
+      "impact_text": "影响 4/5 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M3.3",
+      "affected_count": 4,
+      "sample_size": 5,
+      "evidence_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 7,
+      "dimension_code": "D5",
+      "finding_code": "LOW_M5.1",
+      "priority_score": 73.38,
+      "priority_level": "MEDIUM",
+      "title": "M5.1 指标需要改进",
+      "summary": "该指标得分为 30.00，低于健康阈值。",
+      "impact_text": "影响 3/4 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M5.1",
+      "affected_count": 3,
+      "sample_size": 4,
+      "evidence_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 10,
+      "dimension_code": "D6",
+      "finding_code": "LOW_M6.1",
+      "priority_score": 70.0,
+      "priority_level": "MEDIUM",
+      "title": "M6.1 指标需要改进",
+      "summary": "该指标得分为 20.00，低于健康阈值。",
+      "impact_text": "影响 2/5 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M6.1",
+      "affected_count": 2,
+      "sample_size": 5,
+      "evidence_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 1,
+      "dimension_code": "D1",
+      "finding_code": "LOW_M1.2",
+      "priority_score": 69.25,
+      "priority_level": "MEDIUM",
+      "title": "M1.2 指标需要改进",
+      "summary": "该指标得分为 33.33，低于健康阈值。",
+      "impact_text": "影响 2/5 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M1.2",
+      "affected_count": 2,
+      "sample_size": 5,
+      "evidence_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "id": 2,
+      "dimension_code": "D3",
+      "finding_code": "LOW_M3.2",
+      "priority_score": 45.75,
+      "priority_level": "MEDIUM",
+      "title": "M3.2 指标需要改进",
+      "summary": "该指标得分为 70.00，低于健康阈值。",
+      "impact_text": "影响 1/5 个样本。",
+      "recommendation": "查看证据并按治理页建议完善 Issue 流程。",
+      "metric_code": "M3.2",
+      "affected_count": 1,
+      "sample_size": 5,
+      "evidence_ids": [
+        1,
+        2,
+        3,
+        4
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "id": 2,
+      "issue_number": 6165,
+      "pr_number": null,
+      "type": "MAINTAINER_COMMENT",
+      "excerpt": "The Werkzeug docs were updated to say what they say now [approximately a month ago](https://github.com/pallets/werkzeug/pull/3251). I don't constantly go back and forth keeping the two in sync.\n\n`MAX_CONTENT_LENGTH` should not be _avoided_. In fact, the docs as written in Werkzeug wouldn't help you either. They say that `max_content_length` must be set _somewhere_. The problem you're reporting is that Waitress buffers the response before it gets to the application. Because of that Waitress behavior, the max length can only be configured there, not further down the stack.\n\nSo I suppose what the docs need to say is \"be aware of the stack you're using, how each tool interacts with requests and responses, and how to configure each one appropriately.\" That seems like such general advice, and applies to everything not just `max_content_length`, so I don't think it's worth saying specifically there.",
+      "source_url": "https://github.com/pallets/flask/issues/6165#issuecomment-5838756975",
+      "github_url": "https://github.com/pallets/flask/issues/6165",
+      "actor_login": "davidism",
+      "actor_association": "MEMBER",
+      "happened_at": "2026-09-25T20:02:27"
+    },
+    {
+      "id": 1,
+      "issue_number": 6165,
+      "pr_number": null,
+      "type": "MAINTAINER_COMMENT",
+      "excerpt": "That has nothing to do with Flask, you need to configure Waitress, or the HTTP server in front of Waitress.",
+      "source_url": "https://github.com/pallets/flask/issues/6165#issuecomment-5823580011",
+      "github_url": "https://github.com/pallets/flask/issues/6165",
+      "actor_login": "davidism",
+      "actor_association": "MEMBER",
+      "happened_at": "2026-09-24T22:56:18"
+    },
+    {
+      "id": 3,
+      "issue_number": 6146,
+      "pr_number": null,
+      "type": "MAINTAINER_COMMENT",
+      "excerpt": "It looks like the examples repo listed at the bottom of that page doesn't actually include the referenced example.",
+      "source_url": "https://github.com/pallets/flask/issues/6146#issuecomment-5483308783",
+      "github_url": "https://github.com/pallets/flask/issues/6146",
+      "actor_login": "davidism",
+      "actor_association": "MEMBER",
+      "happened_at": "2026-08-31T19:20:33"
+    },
+    {
+      "id": 4,
+      "issue_number": 6143,
+      "pr_number": null,
+      "type": "MAINTAINER_COMMENT",
+      "excerpt": "If you throw away the error saying you did something wrong, then yes you might end up with incorrect setup. ",
+      "source_url": "https://github.com/pallets/flask/issues/6143#issuecomment-5455494361",
+      "github_url": "https://github.com/pallets/flask/issues/6143",
+      "actor_login": "davidism",
+      "actor_association": "MEMBER",
+      "happened_at": "2026-08-28T17:12:59"
+    }
+  ],
+  "duplicate_summary": [
+    {
+      "issue_a": 6143,
+      "issue_b": 6165,
+      "similarity": 0.883359,
+      "cluster_id": "cluster-1",
+      "model": "BAAI/bge-small-zh-v1.5",
+      "llm_relation": null
+    }
+  ],
+  "governance_summary": {
+    "package_id": 1,
+    "version": "1.0",
+    "status": "DRAFT",
+    "files": [
+      ".github/ISSUE_TEMPLATE/bug_report.yml",
+      ".github/ISSUE_TEMPLATE/feature_request.yml",
+      ".github/ISSUE_TEMPLATE/config.yml",
+      "CONTRIBUTING.md",
+      ".github/ISSUE_TRIAGE.md",
+      "docs/ISSUE_GUIDE.md"
+    ],
+    "labels": [
+      {
+        "action": "create",
+        "name": "type: bug",
+        "color": "d73a4a",
+        "description": "可复现的缺陷"
+      },
+      {
+        "action": "create",
+        "name": "type: feature",
+        "color": "a2eeef",
+        "description": "功能建议"
+      },
+      {
+        "action": "create",
+        "name": "needs-info",
+        "color": "fbca04",
+        "description": "等待提交者补充信息"
+      }
+    ]
+  },
+  "ai_metadata": {
+    "enabled": false,
+    "coverage_percent": 0.0,
+    "models": [],
+    "prompt_versions": [],
+    "analysis_count": 0
+  },
+  "evaluation": {
+    "case_id": "flask",
+    "scale": "medium",
+    "repository_license": "BSD-3-Clause",
+    "source_ref": "d73fa1cdcbd8b1465c151db8924ba58b1dd14e35",
+    "manifest_analysis_date": "2026-09-25",
+    "executed_at": "2026-09-26T01:08:50.569904+00:00",
+    "elapsed_seconds": 15.957,
+    "github_api_calls": 4,
+    "llm_api_calls": 0,
+    "llm_config": {
+      "enabled": false,
+      "model": null,
+      "prompt_version": "issue-batch-v1"
+    }
+  }
+}

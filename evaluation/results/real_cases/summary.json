@@ -1,0 +1,50 @@
+{
+  "schema_version": "1.0",
+  "cases": [
+    {
+      "case_id": "flask",
+      "repository": "pallets/flask",
+      "scale": "medium",
+      "status": "SUCCEEDED",
+      "total_score": 46.95,
+      "confidence": 100.0,
+      "issue_count": 5,
+      "pr_count": 14,
+      "comment_count": 21,
+      "elapsed_seconds": 15.957,
+      "github_api_calls": 4,
+      "llm_api_calls": 0,
+      "error_code": ""
+    },
+    {
+      "case_id": "requests",
+      "repository": "psf/requests",
+      "scale": "medium-large",
+      "status": "SUCCEEDED",
+      "total_score": 42.0,
+      "confidence": 100.0,
+      "issue_count": 12,
+      "pr_count": 3,
+      "comment_count": 45,
+      "elapsed_seconds": 9.965,
+      "github_api_calls": 4,
+      "llm_api_calls": 0,
+      "error_code": ""
+    },
+    {
+      "case_id": "cli",
+      "repository": "cli/cli",
+      "scale": "large",
+      "status": "SUCCEEDED",
+      "total_score": 49.82,
+      "confidence": 90.0,
+      "issue_count": 30,
+      "pr_count": 30,
+      "comment_count": 529,
+      "elapsed_seconds": 13.261,
+      "github_api_calls": 9,
+      "llm_api_calls": 0,
+      "error_code": ""
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{% macro icon(name, class_name='') -%}
+<svg class="icon {{ class_name }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  {% if name == 'pulse' %}<path d="M3 12h4l3-8 4 16 3-8h4"/>
+  {% elif name == 'plus' %}<path d="M12 5v14M5 12h14"/>
+  {% elif name == 'history' %}<path d="M3 11a9 9 0 1 1 2.6 7M3 4v7h7M12 7v5l3 2"/>
+  {% elif name == 'book' %}<path d="M12 5v16M3 3h5a4 4 0 0 1 4 2 4 4 0 0 1 4-2h5v16h-5a4 4 0 0 0-4 2 4 4 0 0 0-4-2H3z"/>
+  {% elif name == 'settings' %}<path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3" fill="currentColor" stroke="none"/><circle cx="15" cy="17" r="3" fill="currentColor" stroke="none"/>
+  {% elif name == 'arrow' %}<path d="M5 12h14m-5-5 5 5-5 5"/>
+  {% elif name == 'repository' %}<rect x="5" y="3" width="15" height="18" rx="2"/><path d="M5 17h15M9 3v10l3-2 3 2V3"/>
+  {% elif name == 'check' %}<path d="m5 12 4 4L19 6"/>
+  {% elif name == 'clock' %}<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>
+  {% elif name == 'layers' %}<path d="m12 3 10 5-10 5L2 8zm-10 9 10 5 10-5M2 16l10 5 10-5"/>
+  {% elif name == 'file' %}<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8zm0 0v6h6M8 13h8M8 17h5"/>
+  {% elif name == 'tag' %}<path d="M3 3h8l10 10-8 8L3 11z"/><circle cx="7.5" cy="7.5" r="1"/>
+  {% elif name == 'branch' %}<circle cx="6" cy="5" r="2"/><circle cx="6" cy="19" r="2"/><circle cx="18" cy="5" r="2"/><path d="M6 7v10M18 7v2a5 5 0 0 1-5 5H6"/>
+  {% elif name == 'chevron' %}<path d="m9 5 7 7-7 7"/>
+  {% elif name == 'assistant' %}<path d="M12 3a7 7 0 0 0-7 7v3a4 4 0 0 0 4 4h1v-5H7v-2a5 5 0 0 1 10 0v2h-3v5h1a4 4 0 0 0 4-4v-3a7 7 0 0 0-7-7Z"/><path d="M10 20h4"/>
+  {% elif name == 'close' %}<path d="m6 6 12 12M18 6 6 18"/>
+  {% elif name == 'send' %}<path d="m5 12 14-7-5 14-2-5-7-2Z"/><path d="m12 14 7-9"/>
+  {% endif %}
+</svg>
+{%- endmacro %}

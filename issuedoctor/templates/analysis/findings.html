@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title %}Findings · {{ run.repository.full_name }}{% endblock %}
+{% block content %}
+  <a class="text-sm text-accent hover:underline" href="{{ url_for('analysis.overview_page', run_id=run.id) }}">← 返回总览</a>
+  <h1 class="mt-4 text-2xl font-semibold">问题清单</h1>
+  <p class="mt-2 text-sm text-slate-600">规则 Finding 与 AI 语义 Finding 会分别标注来源。规则基础健康分不因 AI 改写；AI 结果用于补充优先级、治理动作与增强综合分。</p>
+  <div class="mt-6 space-y-4">{% for finding in findings %}<article class="border border-line bg-white p-5"><div class="flex flex-wrap justify-between gap-4"><span class="text-xs font-semibold">{{ finding.priority_level }} · {{ '%.1f'|format(finding.priority_score) }} · {{ 'AI 语义' if finding.source_type == 'AI' else '规则' }}</span><span class="text-right text-xs text-slate-500">{{ finding.dimension_code }} {{ dimensions[finding.dimension_code].name }}<br>{{ finding.metric_code }} {{ metric_help[finding.metric_code].name }}</span></div><h2 class="mt-2 font-semibold">{{ finding.title }}</h2><p class="mt-2 text-sm text-slate-600">{{ finding.summary }}</p><p class="mt-3 text-sm">{{ finding.impact_text }}</p><p class="mt-2 text-sm text-accent">{{ finding.recommendation }}</p></article>{% else %}<p class="text-sm text-slate-500">没有 Finding。</p>{% endfor %}</div>
+  <section class="mt-10"><h2 class="mb-4 text-lg font-semibold">证据</h2>{% include "components/evidence_table.html" %}</section>
+  {% include "components/issue_drawer.html" %}
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/evidence.js') }}" defer></script>{% endblock %}

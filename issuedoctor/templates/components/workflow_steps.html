@@ -1,0 +1,7 @@
+<ol class="mb-8 grid grid-cols-3 gap-2 text-xs sm:grid-cols-5" aria-label="审计流程">
+  {% for step in workflow_steps %}
+    <li class="border-t-2 pt-2 {% if step.number == active_step %}border-accent font-semibold text-accent{% elif step.number < active_step %}border-success text-success{% else %}border-line text-slate-400{% endif %}">
+      {{ step.number }}. {{ step.name }}
+    </li>
+  {% endfor %}
+</ol>

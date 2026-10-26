@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>{% block title %}{{ t('app.name') }}{% endblock %}</title>
+    {% set asset_version = '20261023-6' %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/app.css', v=asset_version) }}">
+    {% block head %}{% endblock %}
+  </head>
+  <body class="min-h-screen bg-canvas text-ink antialiased">
+    {% from 'components/icons.html' import icon %}
+    {% set endpoint = request.endpoint or '' %}
+    {% set navigation = [('main.index', 'plus', t('nav.new_audit')), ('analysis.history_page', 'history', t('nav.history')), ('main.guide', 'book', t('nav.guide')), ('settings.settings_page', 'settings', t('nav.settings'))] %}
+    <a class="skip-link" href="#main-content">跳转到主要内容</a>
+    <aside class="app-sidebar">
+      <a class="brand" href="{{ url_for('main.index') }}"><span class="brand-mark">{{ icon('pulse') }}</span>{{ t('app.name') }}</a>
+      <div class="workspace-label">仓库健康工作台</div>
+      <nav class="main-navigation" aria-label="主导航">
+        {% for route, symbol, label in navigation %}
+          {% set selected = endpoint == route or (route == 'main.index' and endpoint.startswith('preflight.')) or (route == 'analysis.history_page' and (endpoint.startswith('analysis.') or endpoint.startswith('governance.'))) %}
+          <a class="nav-item{% if selected %} is-active{% endif %}" href="{{ url_for(route) }}"{% if selected %} aria-current="page"{% endif %}>{{ icon(symbol) }}<span>{{ label }}</span>{% if selected %}<span class="nav-dot"></span>{% endif %}</a>
+        {% endfor %}
+      </nav>
+      <div class="sidebar-note"><span class="note-icon">{{ icon('repository') }}</span><p>让每一个 Issue<br>都有更好的下一步。</p><a href="{{ url_for('main.guide') }}">了解审计流程 {{ icon('arrow') }}</a></div>
+      <div class="sidebar-footer"><span class="local-dot"></span>本地工作空间<span class="font-mono">v1.0</span></div>
+    </aside>
+    <div class="app-workspace">
+      <header class="workspace-header">
+        <div class="breadcrumb"><span>工作空间</span>{{ icon('chevron') }}<span class="text-ink">{% if endpoint == 'main.index' %}新建审计{% elif endpoint == 'main.guide' %}使用指南{% elif endpoint.startswith('settings.') %}连接与密钥{% elif endpoint == 'analysis.history_page' %}历史分析{% elif endpoint.startswith('preflight.') %}仓库预检{% elif endpoint.startswith('governance.') %}治理方案{% elif endpoint.endswith('progress_page') %}分析进度{% elif endpoint.startswith('analysis.') %}诊断报告{% else %}IssueDoctor{% endif %}</span></div>
+        <a class="header-help" href="{{ url_for('main.guide') }}">{{ icon('book') }}<span>使用指南</span></a>
+      </header>
+      <main id="main-content" class="page-content" tabindex="-1">
+        {% block content %}{% endblock %}
+      </main>
+      <footer class="page-footer"><span>IssueDoctor <span class="footer-divider">/</span> 从问题到改进，有据可依。</span><span>可解释 · 可复现 · 可追溯</span></footer>
+    </div>
+    <script src="{{ url_for('static', filename='vendor/echarts.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/app.js', v=asset_version) }}" defer></script>
+    {% set assistant_run = run if run is defined else none %}
+    {% set assistant_enabled = assistant_run and assistant_run.status in ['SUCCEEDED', 'PARTIAL'] and endpoint and (endpoint.startswith('analysis.') or endpoint.startswith('governance.')) and not endpoint.endswith('progress_page') %}
+    {% if assistant_enabled %}
+      {% include "components/assistant.html" %}
+      <script src="{{ url_for('static', filename='js/assistant.js', v=asset_version) }}" defer></script>
+    {% endif %}
+    {% block scripts %}{% endblock %}
+  </body>
+</html>

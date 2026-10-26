@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}{{ t('nav.settings') }} · {{ t('app.name') }}{% endblock %}
+
+{% block head %}
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+{% endblock %}
+
+{% block content %}
+  <div class="max-w-3xl">
+    <div class="flex flex-wrap items-start justify-between gap-4 border-b border-line pb-5">
+      <div>
+      <h1 class="text-2xl font-semibold">连接与密钥</h1>
+      <p class="mt-2 text-sm leading-6 text-slate-600">
+        密钥不会写入 SQLite、日志或报告。{% if settings.secret_storage == 'persistent' %}Windows 本地模式使用系统凭据库持久保存。{% else %}当前环境仅在进程内临时保存，重启后失效；建议使用环境变量。{% endif %}
+      </p>
+      </div>
+      <a class="border border-accent px-4 py-2 text-sm font-medium text-accent hover:bg-blue-50" href="{{ url_for('main.guide') }}">打开使用指南</a>
+    </div>
+
+    <form id="settings-form" class="space-y-8 py-8">
+      <section>
+        <div class="flex items-center justify-between">
+          <h2 class="font-semibold">GitHub</h2>
+          <span id="github-saved-state" class="text-xs {% if settings.github_token_saved %}text-success{% else %}text-slate-500{% endif %}">
+            {{ '已配置 Token' if settings.github_token_saved else '未配置 Token（公开仓库仍可只读分析）' }}
+          </span>
+        </div>
+        <label class="mt-4 block text-sm font-medium" for="github-token">GitHub Token</label>
+        <input class="mt-2 w-full border border-line px-3 py-2 text-sm" id="github-token" type="password" autocomplete="off" placeholder="{{ '已安全保存；留空将保留当前 Token' if settings.github_token_saved else '输入 Token 后可先测试连接' }}">
+        <div class="mt-3 flex gap-3">
+          <button class="border border-line bg-white px-4 py-2 text-sm hover:bg-canvas" data-action="test-github" type="button">测试连接</button>
+          <button class="px-4 py-2 text-sm text-red-700 hover:bg-red-50" data-action="delete-github" type="button">删除已保存 Token</button>
+        </div>
+        <p id="github-status" class="mt-3 text-sm text-slate-600" role="status" aria-live="polite">测试结果会显示在这里。</p>
+      </section>
+
+      <section class="border-t border-line pt-8">
+        <div class="flex items-center justify-between">
+          <h2 class="font-semibold">OpenAI-compatible LLM</h2>
+          <span id="llm-saved-state" class="text-xs {% if settings.llm_api_key_saved %}text-success{% else %}text-slate-500{% endif %}">
+            {{ '已配置 API Key' if settings.llm_api_key_saved else '未配置，运行基础诊断模式' }}
+          </span>
+        </div>
+        <p class="mt-3 text-sm leading-6 text-slate-600">这里的 API Key、Base URL 和模型名同时用于审计 AI 增强与报告助手对话。保存后建议先点击“测试连接”，确认三项目前都可用。可使用 Groq、Gemini 或 OpenRouter 的免费层。<a class="font-medium text-accent hover:underline" href="{{ url_for('main.guide') }}#ai">查看可直接填写的 Base URL 与模型名称</a></p>
+        <label class="mt-4 block text-sm font-medium" for="llm-base-url">Base URL</label>
+        <input class="mt-2 w-full border border-line px-3 py-2 text-sm" id="llm-base-url" type="url" value="{{ settings.llm_base_url }}" required>
+        <label class="mt-4 block text-sm font-medium" for="llm-model">Model Name</label>
+        <input class="mt-2 w-full border border-line px-3 py-2 text-sm" id="llm-model" type="text" value="{{ settings.llm_model }}" placeholder="例如 gpt-4.1-mini">
+        <label class="mt-4 block text-sm font-medium" for="llm-api-key">API Key</label>
+        <input class="mt-2 w-full border border-line px-3 py-2 text-sm" id="llm-api-key" type="password" autocomplete="off" placeholder="{{ '已安全保存；留空将保留当前 API Key' if settings.llm_api_key_saved else '输入 API Key 后可先测试连接' }}">
+        <div class="mt-3 flex gap-3">
+          <button class="border border-line bg-white px-4 py-2 text-sm hover:bg-canvas" data-action="test-llm" type="button">测试连接</button>
+          <button class="px-4 py-2 text-sm text-red-700 hover:bg-red-50" data-action="delete-llm" type="button">删除已保存 API Key</button>
+        </div>
+        <p id="llm-status" class="mt-3 text-sm text-slate-600" role="status" aria-live="polite">测试结果会显示在这里。</p>
+      </section>
+
+      <section class="border-t border-line pt-8">
+        <h2 class="font-semibold">可选能力</h2>
+        <p class="mt-3 text-sm leading-6 text-slate-600">
+          核心诊断（采集、六维评分、报告导出、Web 界面）无需任何可选依赖即可完整运行。以下能力按需启用，未启用时系统会自动降级而非报错。
+        </p>
+        <ul class="mt-4 divide-y divide-line border border-line">
+          {% for item in capabilities %}
+            <li class="flex items-start justify-between gap-4 px-4 py-3">
+              <div>
+                <p class="text-sm font-medium">{{ item.label }}</p>
+                {% if item.available %}
+                  <p class="mt-1 text-xs text-slate-600">已启用</p>
+                {% else %}
+                  <p class="mt-1 text-xs text-slate-600">未启用，缺少：{{ item.missing | join('、') }}</p>
+                  <p class="mt-1 text-xs text-slate-500">启用方式：<code>{{ item.install_hint }}</code></p>
+                {% endif %}
+              </div>
+              <span class="shrink-0 text-xs {% if item.available %}text-success{% else %}text-slate-500{% endif %}">
+                {{ '可用' if item.available else '未启用' }}
+              </span>
+            </li>
+          {% endfor %}
+        </ul>
+      </section>
+
+      <div class="flex items-center gap-4 border-t border-line pt-6">
+        <button class="bg-ink px-5 py-2.5 text-sm font-medium text-white hover:bg-slate-700" type="submit">保存设置</button>
+        <p id="settings-status" class="mt-3 text-sm text-slate-600" role="status" aria-live="polite">保存后，密码框会按安全规则清空；页面右上角状态会显示是否已配置。</p>
+      </div>
+    </form>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script src="{{ url_for('static', filename='js/settings.js', v='20260926-2') }}" defer></script>
+{% endblock %}

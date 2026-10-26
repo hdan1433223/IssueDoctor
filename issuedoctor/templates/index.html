@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% from 'components/icons.html' import icon %}
+
+{% block content %}
+  <div class="home-content">
+    <section class="home-intro" aria-labelledby="home-title">
+      <p class="eyebrow"><span></span> GITHUB ISSUE WORKFLOW AUDIT</p>
+      <h1 id="home-title">看清问题，<span>让协作更进一步。</span></h1>
+      <p class="intro-description">从 Issue 到 Pull Request，用六个维度理解仓库健康度，<br class="desktop-break">把零散的问题，变成有据可依的改进方向。</p>
+    </section>
+
+    <section class="audit-panel" aria-labelledby="audit-title">
+      <div class="audit-panel-heading">
+        <div class="flex items-center gap-3"><span class="panel-icon">{{ icon('repository') }}</span><div><h2 id="audit-title">开始一次仓库审计</h2><p>输入公开 GitHub 仓库，先检查数据与分析范围。</p></div></div>
+        <span class="mode-badge">无需 AI Key</span>
+      </div>
+      <form aria-label="仓库预检" action="{{ url_for('preflight.preflight_page') }}" method="get">
+        <label class="repo-label" for="repository-url">GitHub 仓库</label>
+        <div class="repo-input-row">
+          <div class="repo-input-wrap">{{ icon('repository') }}<input id="repository-url" name="repository_url" type="text" inputmode="url" placeholder="owner/repository 或 GitHub 仓库链接" autocomplete="url" spellcheck="false" pattern="(?:https://github\.com/)?[A-Za-z0-9][A-Za-z0-9\-]{0,38}/[A-Za-z0-9._\-]+(?:\.git)?/?" title="请输入 owner/repository 或完整的 GitHub 仓库链接" required></div>
+          <button class="primary-button" type="submit">{{ t('home.preflight') }}{{ icon('arrow') }}</button>
+        </div>
+        <div class="repo-examples"><span>试试这些仓库</span>{% for repo in ['psf/requests', 'pallets/flask', 'astral-sh/ruff'] %}<button type="button" data-repository="{{ repo }}">{{ repo }}</button>{% endfor %}</div>
+      </form>
+      <div class="audit-assurances"><span>{{ icon('check') }}公开仓库即可开始</span><span>{{ icon('check') }}每项结论可追溯</span><span>{{ icon('check') }}预检不会修改仓库</span></div>
+    </section>
+
+    <section class="home-section" aria-labelledby="dimensions-title">
+      <div class="section-heading"><div><p class="section-eyebrow">诊断范围</p><h2 id="dimensions-title">六个维度，一份完整诊断</h2></div><a class="text-link" href="{{ url_for('main.guide') }}#dimensions">了解评分规则 {{ icon('arrow') }}</a></div>
+      <div class="dimension-grid">
+        {% set symbols = ['clock', 'layers', 'file', 'tag', 'branch', 'book'] %}
+        {% set descriptions = ['及时回应，让贡献不被搁置', '看清积压，找到处理的重点', '补齐信息，减少反复沟通', '有序分类，让问题各归其位', '连接修复，追踪协作的结果', '沉淀经验，让问题少些重复'] %}
+        {% for code, item in dimensions.items() %}
+          <a class="dimension-card" href="{{ url_for('main.guide') }}#dimension-{{ code }}"><div class="dimension-card-top">{{ icon(symbols[loop.index0]) }}<span>{{ code }}</span></div><h3>{{ item.name }}</h3><p>{{ descriptions[loop.index0] }}</p></a>
+        {% endfor %}
+      </div>
+      <details class="dimension-details"><summary>六个维度分别在看什么？{{ icon('chevron') }}</summary><div class="dimension-explanations">{% for code, item in dimensions.items() %}<div><h3>{{ code }} · {{ item.name }}</h3><p>{{ item.summary }}</p></div>{% endfor %}</div></details>
+    </section>
+
+    <section class="home-section workflow-section" aria-labelledby="workflow-title">
+      <div class="section-heading"><div><p class="section-eyebrow">简单五步</p><h2 id="workflow-title">从发现问题，到落实改进</h2></div><a class="text-link" href="{{ url_for('main.guide') }}#workflow">查看使用指南 {{ icon('arrow') }}</a></div>
+      <ol class="home-workflow">{% for step in workflow_steps %}<li><span class="step-number">0{{ step.number }}</span><h3>{{ step.name }}</h3><p>{{ step.summary }}</p></li>{% endfor %}</ol>
+    </section>
+
+    <a class="history-shortcut" href="{{ url_for('analysis.history_page') }}"><span class="history-shortcut-icon">{{ icon('history') }}</span><span><strong>回顾每一次改进</strong><span>在历史分析中查看已保存的诊断与报告。</span></span><span class="history-shortcut-link">历史分析 {{ icon('arrow') }}</span></a>
+  </div>
+{% endblock %}

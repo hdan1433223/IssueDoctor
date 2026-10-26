@@ -1,0 +1,18 @@
+# IssueDoctor 核心依赖（必需，约 30 MB 安装体积）
+#
+# 这一层足以完成完整审计：GitHub 采集、六维确定性评分、重复问题检测
+# （内置纯 Python 相似度）、治理方案生成、Web 界面、JSON/Markdown 导出。
+#
+# 可选增强能力见 requirements-vector.txt 与 requirements-pdf.txt，
+# 或直接使用 pip install "issuedoctor[vector,pdf]"。
+Flask==3.1.3
+Flask-Migrate==4.1.0
+Flask-SQLAlchemy==3.1.1
+Flask-WTF==1.2.2
+gunicorn==23.0.0
+httpx==0.28.1
+keyring==25.6.0
+pydantic==2.11.9
+PyYAML==6.0.3
+openai==2.6.1
+SQLAlchemy==2.0.43

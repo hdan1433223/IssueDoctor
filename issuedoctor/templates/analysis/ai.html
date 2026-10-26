@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}AI 分析 · {{ run.repository.full_name }}{% endblock %}
+{% block content %}
+  <a class="text-sm text-accent hover:underline" href="{{ url_for('analysis.overview_page', run_id=run.id) }}">← 返回总览</a>
+  <div class="mt-4 flex flex-wrap items-start justify-between gap-4 border-b border-line pb-6">
+    <div>
+      <p class="text-sm text-slate-500">{{ run.repository.full_name }}</p>
+      <h1 class="mt-1 text-2xl font-semibold">AI 增强分析</h1>
+      <p class="mt-2 max-w-3xl text-sm leading-6 text-slate-600">AI 在硬预算内抽取有代表性的 Issue，输出语义质量、闭环质量、建议动作、证据摘录和知识候选，并复核高相似问题。规则基础分始终保留，AI 不会直接修改 GitHub。</p>
+    </div>
+    <div class="grid gap-2 text-right"><div class="border border-line bg-white px-4 py-3"><p class="text-xs text-slate-500">AI 覆盖率</p><p class="mt-1 text-2xl font-semibold">{{ '%.1f'|format(summary.ai_coverage_percent) }}%</p><p class="mt-1 text-xs text-slate-500">请求成功率 {{ '%.1f'|format(summary.ai_success_percent) }}%</p></div>{% if run.ai_semantic_score is not none %}<div class="border border-line bg-white px-4 py-3"><p class="text-xs text-slate-500">AI 语义评分</p><p class="mt-1 text-2xl font-semibold">{{ '%.1f'|format(run.ai_semantic_score) }}</p></div>{% endif %}</div>
+  </div>
+  {% set runtime = (run.analysis_config_json or {}).get('runtime', {}) %}
+  {% if runtime.ai_selected_issues is defined %}<p class="mt-4 text-xs text-slate-500">本次候选 {{ runtime.ai_eligible_issues }} 条，用户设定 {{ runtime.ai_requested_issues or runtime.ai_selected_issues }} 条，实际选中 {{ runtime.ai_selected_issues }} 条，跳过 {{ runtime.ai_skipped_issues }} 条；LLM 逻辑调用 {{ runtime.llm_api_calls }} 次，重复候选复核 {{ runtime.ai_duplicate_reviews }} 对。{% if runtime.ai_budget_profile == 'groq-free-safe' %}<span class="text-accent">已启用 Groq 限流保护。</span>{% endif %}{% if runtime.ai_failure_reasons %}<span class="text-red-700">失败类型：{{ runtime.ai_failure_reasons|join(', ') }}</span>{% endif %}</p>{% endif %}
+
+  {% if analyses %}
+    <div class="mt-8 space-y-5">
+      {% for item in analyses %}
+        <article class="border border-line bg-white p-5">
+          <div class="flex flex-wrap items-start justify-between gap-4">
+            <div><a class="font-semibold text-accent hover:underline" href="{{ item.issue_url }}" target="_blank" rel="noopener noreferrer">#{{ item.issue_number }} · {{ item.issue_title }}</a><p class="mt-1 text-xs text-slate-500">模型 {{ item.model }} · Prompt {{ item.prompt_version }}</p></div>
+            <span class="border border-line bg-canvas px-3 py-1 text-xs font-medium">{{ category_names.get(item.category, item.category) }} · 置信度 {{ '%.0f'|format(item.category_confidence * 100) }}%</span>
+          </div>
+          <section class="mt-5"><h2 class="text-xs font-semibold uppercase tracking-wide text-slate-500">AI 摘要</h2><p class="mt-2 text-sm leading-6">{{ item.summary }}</p></section>
+          <div class="mt-5 grid gap-3 sm:grid-cols-3">
+            <div class="bg-canvas p-3"><p class="text-xs text-slate-500">语义信息质量</p><p class="mt-1 text-lg font-semibold">{{ '%.1f'|format(item.semantic_quality_score) if item.semantic_quality_score is not none else 'N/A' }}</p></div>
+            <div class="bg-canvas p-3"><p class="text-xs text-slate-500">闭环质量</p><p class="mt-1 text-lg font-semibold">{{ '%.1f'|format(item.closure_quality_score) if item.closure_quality_score is not none else 'N/A' }}</p></div>
+            <div class="bg-canvas p-3"><p class="text-xs text-slate-500">建议动作</p><p class="mt-1 text-sm font-semibold">{{ action_names.get(item.recommended_action, item.recommended_action) }}</p>{% if item.knowledge_candidate %}<p class="mt-1 text-xs text-accent">知识沉淀候选</p>{% endif %}</div>
+          </div>
+          <div class="mt-5 grid gap-5 md:grid-cols-2">
+            <section><h2 class="text-xs font-semibold uppercase tracking-wide text-slate-500">缺失信息</h2>{% if item.missing_information %}<ul class="mt-2 flex flex-wrap gap-2">{% for value in item.missing_information %}<li class="bg-amber-50 px-2 py-1 text-xs text-amber-800">{{ field_names.get(value, value) }}</li>{% endfor %}</ul>{% else %}<p class="mt-2 text-sm text-slate-500">未发现明显缺失项</p>{% endif %}</section>
+            <section><h2 class="text-xs font-semibold uppercase tracking-wide text-slate-500">质量标记</h2>{% if item.quality_flags %}<ul class="mt-2 flex flex-wrap gap-2">{% for value in item.quality_flags %}<li class="bg-red-50 px-2 py-1 text-xs text-red-700">{{ field_names.get(value, value) }}</li>{% endfor %}</ul>{% else %}<p class="mt-2 text-sm text-slate-500">未发现额外质量标记</p>{% endif %}</section>
+          </div>
+          {% if item.evidence_quotes %}<section class="mt-5"><h2 class="text-xs font-semibold uppercase tracking-wide text-slate-500">判断证据摘录</h2><ul class="mt-2 space-y-2">{% for quote in item.evidence_quotes %}<li class="border-l-2 border-line pl-3 text-sm text-slate-600">{{ quote }}</li>{% endfor %}</ul></section>{% endif %}
+          <details class="mt-5 border-t border-line pt-4"><summary class="cursor-pointer text-sm font-medium text-accent">查看 AI 判断理由</summary><p class="mt-3 text-sm leading-6 text-slate-600">{{ item.explanation }}</p></details>
+        </article>
+      {% endfor %}
+    </div>
+  {% elif run.mode == 'AI_ENHANCED' %}
+    <div class="mt-8 border border-dashed border-line bg-white p-8"><h2 class="font-semibold">本次没有可展示的 AI 结果</h2><p class="mt-2 text-sm leading-6 text-slate-600">可能没有命中 Bug/低信息候选，或 AI 请求失败。基础评分仍然有效；可结合进度事件和日志确认具体情况。</p></div>
+  {% else %}
+    <div class="mt-8 border border-dashed border-line bg-white p-8"><h2 class="font-semibold">本次运行未启用 AI</h2><p class="mt-2 text-sm leading-6 text-slate-600">当前是基础诊断模式。配置 LLM API Key 和模型后重新运行审计，才会生成逐 Issue 的 AI 增强结果。</p><a class="mt-4 inline-block text-sm font-medium text-accent hover:underline" href="{{ url_for('settings.settings_page') }}">前往设置 AI →</a></div>
+  {% endif %}
+
+  {% if duplicate_reviews %}
+    <section class="mt-10"><h2 class="text-lg font-semibold">AI 重复候选复核</h2><p class="mt-2 text-sm text-slate-600">候选对先由本地相似度模型筛出，AI 只判断语义关系，不会自动关闭或合并 Issue。</p><div class="mt-4 overflow-x-auto border border-line bg-white"><table class="w-full text-left text-sm"><thead class="bg-canvas text-xs text-slate-500"><tr><th class="px-4 py-3">Issue 对</th><th class="px-4 py-3">本地相似度</th><th class="px-4 py-3">AI 关系</th><th class="px-4 py-3">AI 理由</th></tr></thead><tbody class="divide-y divide-line">{% for item in duplicate_reviews %}<tr><td class="px-4 py-3">#{{ item.issue_a }} / #{{ item.issue_b }}</td><td class="px-4 py-3">{{ '%.3f'|format(item.similarity) }}</td><td class="px-4 py-3">{{ item.llm_relation }}{% if item.llm_confidence is not none %} · {{ '%.0f'|format(item.llm_confidence * 100) }}%{% endif %}</td><td class="px-4 py-3 text-slate-600">{{ item.llm_reason }}</td></tr>{% endfor %}</tbody></table></div></section>
+  {% endif %}
+{% endblock %}

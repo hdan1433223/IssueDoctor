@@ -1,0 +1,38 @@
+{
+  "schema_version": "1.0",
+  "experiment_type": "offline_replay",
+  "repository_case": [
+    "pallets/flask"
+  ],
+  "scenario_count": 12,
+  "disclaimer": "离线模拟 / controlled simulation；不是该仓库真实部署后的线上结果。",
+  "rules": {
+    "completeness": "captured_fields / required_fields",
+    "follow_up_questions": "缺失的必要信息组数量",
+    "classification": "predicted_type == ground_truth_type",
+    "time": "预设场景填写计时，单位为分钟"
+  },
+  "before": {
+    "field_completeness": 0.5069444444444445,
+    "follow_up_questions": 1.75,
+    "classification_accuracy": 0.5833333333333334,
+    "completion_minutes": 4.483333333333333
+  },
+  "after": {
+    "field_completeness": 1.0,
+    "follow_up_questions": 0.0,
+    "classification_accuracy": 1.0,
+    "completion_minutes": 5.533333333333332
+  },
+  "delta": {
+    "field_completeness": 0.49305555555555547,
+    "follow_up_questions": -1.75,
+    "classification_accuracy": 0.41666666666666663,
+    "completion_minutes": 1.049999999999999
+  },
+  "limitations": [
+    "场景为受控离线回放，不是随机对照用户实验。",
+    "没有向 pallets/flask 或其他第三方仓库写入任何内容。",
+    "结果仅说明预设表单约束在这些场景中的机械差异。"
+  ]
+}

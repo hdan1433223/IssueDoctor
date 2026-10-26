@@ -1,0 +1,18 @@
+<div class="fixed inset-0 z-40 hidden" data-evidence-drawer>
+  <button class="absolute inset-0 bg-black/20" type="button" aria-label="关闭证据详情" data-close-drawer></button>
+  <aside class="absolute inset-y-0 right-0 w-full max-w-xl overflow-y-auto border-l border-line bg-white p-6 shadow-xl" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <div class="flex items-center justify-between border-b border-line pb-4">
+      <h2 class="font-semibold" id="drawer-title">证据详情</h2>
+      <button class="text-sm text-slate-600" type="button" data-close-drawer>关闭</button>
+    </div>
+    <dl class="mt-6 grid grid-cols-[7rem_1fr] gap-y-3 text-sm">
+      <dt class="text-slate-500">对象</dt><dd data-drawer-object></dd>
+      <dt class="text-slate-500">类型</dt><dd data-drawer-type></dd>
+      <dt class="text-slate-500">操作者</dt><dd data-drawer-actor></dd>
+      <dt class="text-slate-500">时间</dt><dd data-drawer-time></dd>
+    </dl>
+    <pre class="mt-6 whitespace-pre-wrap border border-line bg-canvas p-4 text-sm leading-6" data-drawer-excerpt></pre>
+    <a class="mt-5 inline-block text-sm font-medium text-accent hover:underline" data-drawer-link target="_blank" rel="noopener noreferrer">查看 GitHub 原始页面</a>
+  </aside>
+</div>
+
